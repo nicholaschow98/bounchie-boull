@@ -31,6 +31,7 @@ public class B_Ball extends Game {
 
 	@Override
 	public void render () {
+		batch.enableBlending();
 		super.render();
 	}
 

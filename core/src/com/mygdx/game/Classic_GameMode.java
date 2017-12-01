@@ -23,7 +23,7 @@ public class Classic_GameMode implements GameMode {
     private boolean lose = false;
     public int score = 0;
 
-    private int num_walls = 12;
+    private int num_walls = 6;
 
     private int wallWidth = 30;
     private float wall_yvel = -10;
@@ -129,12 +129,14 @@ public class Classic_GameMode implements GameMode {
                     }else if(dir[i]=='l'){
                         if(!lose){
                             score++;
+                            incDiff();
                         }
                         Ball.xvel=-1*abs(Ball.xvel);
                         Ball.x = Walls[i].x-Ball.width;
                     }else if(dir[i]=='r'){
                         if(!lose){
                             score++;
+                            incDiff();
                         }
                         Ball.xvel=abs(Ball.xvel);
                         Ball.x = Walls[i].x+Walls[i].width;
@@ -165,6 +167,19 @@ public class Classic_GameMode implements GameMode {
     }
     public void lose(){
         lose = true;
+    }
+    private void incDiff(){
+        if(Ball.xvel>0){
+            Ball.xvel+=Ball_init_vel/300;
+        }else{
+            Ball.xvel-=Ball_init_vel/100;
+        }
+        for(Wall wall:Walls){
+            wall.yvel+=wall_yvel/60;
+        }
+    }
+    public boolean getLose(){
+        return this.lose;
     }
     public void start(){
         this.started = true;

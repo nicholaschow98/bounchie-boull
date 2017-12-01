@@ -9,6 +9,7 @@ public interface GameMode {
     Ball get_Ball();
     void update();
     int getScore();
+    boolean getLose();
     void touch_Update();
     void lose();
     void start();

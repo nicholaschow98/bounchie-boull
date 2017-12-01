@@ -19,12 +19,14 @@ public class GameScreen implements Screen {
 
     BitmapFont font = new BitmapFont();
 
+    Button backButton;
+
     public GameScreen(final B_Ball game){
         this.game = game;
         camera = new OrthographicCamera(game.cameraWidth, game.cameraHeight);
         camera.setToOrtho( false, game.cameraWidth,game.cameraHeight);
         gamemode= new Classic_GameMode(this.game);
-
+        backButton = new Button(game.cameraWidth*2/8,game.screenHeight*6/8, 100, 100,false, new Texture("badlogic.jpg"));
     }
     public void pause(){
 
@@ -42,15 +44,29 @@ public class GameScreen implements Screen {
         for(Wall wall : gamemode.get_Walls()){
             wall.drawSelf(this.game);
         }
-        font.getData().setScale(3);
+        font.getData().setScale(7);
         font.setColor(Color.BLACK);
-        font.draw(game.batch, ""+gamemode.getScore(), 300, 700);
+
         gamemode.get_Ball().drawSelf(this.game);
+        if(gamemode.getLose()==true){
+            game.batch.draw(game.img,game.cameraWidth/8,game.screenHeight*2/3,game.cameraWidth*6/8,game.screenHeight/3);
+            backButton.activate();
+            backButton.drawSelf(this.game);
+        }
+        else{
+            backButton.deactivate();
+        }
+        font.draw(game.batch, ""+gamemode.getScore(), game.cameraWidth/2-font.getSpaceWidth()/2, game.screenHeight*7/8);
         game.batch.end();
 
         if(Gdx.input.isTouched()){
             game.touchPos.set(Gdx.input.getX(), Gdx.input.getY(),0);
             camera.unproject(game.touchPos);
+
+            if(backButton.checkPressed(game.touchPos)){
+                game.setScreen(new MainScreen(game));
+                this.dispose();
+            }
             gamemode.touch_Update();
         }
     }
@@ -59,7 +75,9 @@ public class GameScreen implements Screen {
     }
 
     public void dispose(){
-        game.batch.dispose();
+        backButton.dispose();
+        //gamemode.dispose();//NEED TO IMPLEMENT
+        //game.batch.dispose();
         //game.img.dispose();
     }
 
