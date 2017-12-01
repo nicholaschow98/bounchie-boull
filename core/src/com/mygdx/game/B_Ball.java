@@ -20,7 +20,7 @@ public class B_Ball extends Game {
 	public void create () {
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
-		cameraWidth = 800;//hi
+		cameraWidth = 800;
 		cameraHeight  = (int)(800/ screenWidth * screenHeight);
 
 		batch = new SpriteBatch();
