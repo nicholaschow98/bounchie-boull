@@ -33,7 +33,7 @@ public class Classic_GameMode implements GameMode {
     private float Ball_init_vel = 6.8f;
 
     private Texture wall_texture = new Texture("badlogic.jpg");
-    private Texture ball_texture = new Texture("badlogic.jpg");
+    private Texture ball_texture = game.T_ogBall;
 
     public Classic_GameMode(B_Ball game){
         this.game = game;
@@ -116,15 +116,15 @@ public class Classic_GameMode implements GameMode {
             //BALL LOGIC
             this.Ball.updatePos();
             boolean [] collided = new boolean[num_walls];
-            char [] dir = new char[num_walls];
+            char [] dir = new char[num_walls];//up down left right -> u d l r
             Ball.checkForDirectionalCollision(Walls,collided, dir);
 
             for(int i = 0;i<num_walls;i++){
                 if(collided[i]){
-                    if(dir[i]=='u'){
+                    if(dir[i]=='u'){//ball collided with top of wall
                         Ball.yvel=(float)0.5*abs(Ball.yvel);
                         Ball.y = Walls[i].y+Walls[i].height;
-                    }else if(dir[i]=='d'){
+                    }else if(dir[i]=='d'){//ball collided with bottom of wall
                         Ball.yvel=-1*abs(Ball.yvel);
                         Ball.y = Walls[i].y-Ball.height;
                     }else if(dir[i]=='l'){

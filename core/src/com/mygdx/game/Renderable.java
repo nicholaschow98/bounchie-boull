@@ -28,6 +28,6 @@ public abstract class Renderable {
         game.batch.draw(this.texture, this.x,this.y,this.width,this.height);
     }
     public void dispose(){
-        this.texture.dispose();
+        //this.texture.dispose();
     }
 }

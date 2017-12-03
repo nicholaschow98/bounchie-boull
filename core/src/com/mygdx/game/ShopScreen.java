@@ -37,7 +37,7 @@ public class ShopScreen implements Screen {
     }
 
     private void initializeButtons(){
-        backButton= new Button(game.cameraWidth/8,game.screenHeight*7/8, 100, 100, new Texture("badlogic.jpg"));
+        backButton= new Button(game.cameraWidth/8,game.screenHeight*7/8, 100, 100, game.T_backButton);
         buttons[0] = backButton;
     }
 
@@ -45,7 +45,7 @@ public class ShopScreen implements Screen {
 
     }
 
-    public  void render(float delta){
+    public void render(float delta){
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

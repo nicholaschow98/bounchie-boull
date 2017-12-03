@@ -20,7 +20,7 @@ public class MainScreen implements Screen {
     BitmapFont font;
     int fontScale = 2;
     final int num_of_Buttons = 3;
-    Button gameButton, optionButton, skinButton;
+    Button gameButton, shopButton, skinButton;
     Button buttons[] = new Button[num_of_Buttons];
     public MainScreen(final B_Ball game){
         this.game = game;
@@ -36,11 +36,11 @@ public class MainScreen implements Screen {
     }
 
     private void initializeButtons(){
-        gameButton = new Button(100,100, 100, 100, new Texture("badlogic.jpg"));
-        optionButton =  new Button(100,300, 100, 100, new Texture("badlogic.jpg"));
-        skinButton =  new Button(100,500, 100, 100, new Texture("badlogic.jpg"));
+        gameButton = new Button(100,100, 100, 100, game.T_ogBall);
+        shopButton =  new Button(100,300, 100, 100, game.T_shopIcon);
+        skinButton =  new Button(100,500, 100, 100, game.T_skinIcon);
         buttons[0] = gameButton;
-        buttons[1] = optionButton;
+        buttons[1] = shopButton;
         buttons[2] = skinButton;
     }
 

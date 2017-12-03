@@ -13,6 +13,13 @@ public class B_Ball extends Game {
 	int cameraHeight;
 	SpriteBatch batch;
 	Texture img;
+
+	Texture T_backButton;
+	Texture T_shopIcon;
+	Texture T_ogBall;
+	Texture T_skinIcon;
+
+
 	float screenWidth, screenHeight;
 	public Vector3 touchPos = new Vector3();
 
@@ -27,6 +34,7 @@ public class B_Ball extends Game {
 		img = new Texture("badlogic.jpg");
 		MainScreen mainmenu = new MainScreen(this);
 		this.setScreen(mainmenu);
+		this.initializeTextures();
 	}
 
 	@Override
@@ -38,5 +46,13 @@ public class B_Ball extends Game {
 	@Override
 	public void dispose () {
 
+	}
+
+	private void initializeTextures(){
+
+		T_backButton = new Texture("back_icon_1.png");
+		T_ogBall = new  Texture("ogball_icon.png");
+		T_shopIcon = new Texture("shop_icon.png");
+		T_skinIcon = new Texture("skin_icon.png");
 	}
 }
