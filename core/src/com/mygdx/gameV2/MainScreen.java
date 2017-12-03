@@ -61,7 +61,9 @@ public class MainScreen implements Screen {
             button.drawSelf(this.game);
         }
         font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
-        font.draw(game.batch, "FUCK", 100, 700);
+        font.getData().setScale(1,1);
+        font.draw(game.batch, "cam Height:"+game.cameraHeight+"   screen Height:"+game.screenHeight, 100, 700);
+        font.getData().setScale(game.fontScale,game.fontScale);
         game.batch.end();
         //end rendering
     }

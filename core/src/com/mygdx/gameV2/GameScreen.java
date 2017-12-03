@@ -25,7 +25,7 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera(game.cameraWidth, game.cameraHeight);
         camera.setToOrtho( false, game.cameraWidth,game.cameraHeight);
         gamemode= new Classic_GameMode(this.game);
-        backButton = new Button(game.cameraWidth*2/8,game.screenHeight*6/8, game.T_backButton);
+        backButton = new Button(game.cameraWidth*2/8,game.cameraHeight*5/8, game.T_backButton);
         this.font = this.game.font;
     }
     public void pause(){
@@ -49,14 +49,14 @@ public class GameScreen implements Screen {
 
         gamemode.get_Ball().drawSelf(this.game);
         if(gamemode.getLose()==true){
-            game.batch.draw(game.img,game.cameraWidth/8,game.screenHeight*2/3,game.cameraWidth*6/8,game.screenHeight/3);
+            game.batch.draw(game.img,game.cameraWidth/8,game.cameraHeight*2/3,game.cameraWidth*6/8,game.cameraHeight/4);
             backButton.activate();
             backButton.drawSelf(this.game);
         }
         else{
             backButton.deactivate();
         }
-        font.draw(game.batch, ""+gamemode.getScore(), game.cameraWidth/2-font.getSpaceWidth()/2, game.screenHeight*7/8);
+        font.draw(game.batch, ""+gamemode.getScore(), game.cameraWidth/2-font.getSpaceWidth()/2, game.cameraHeight*7/8);//-font.getSpaceWidth()/2
         game.batch.end();
 
         if(Gdx.input.isTouched()){

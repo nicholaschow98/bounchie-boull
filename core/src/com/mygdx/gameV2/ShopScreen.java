@@ -36,7 +36,7 @@ public class ShopScreen implements Screen {
     }
 
     private void initializeButtons(){
-        backButton= new Button(game.cameraWidth/8,game.screenHeight*7/8, game.T_backButton);
+        backButton= new Button(game.cameraWidth/8,game.cameraHeight*7/8, game.T_backButton);
         buttons[0] = backButton;
     }
 

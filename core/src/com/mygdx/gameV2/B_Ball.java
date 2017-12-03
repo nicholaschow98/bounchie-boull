@@ -2,15 +2,19 @@ package com.mygdx.gameV2;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.math.Vector3;
 
 
 public class B_Ball extends Game {
+
+
+
+	Preferences data;
 
 	int cameraWidth;
 	int cameraHeight;
@@ -38,9 +42,11 @@ public class B_Ball extends Game {
 		font.setColor(Color.BLACK);
 		font.getData().setScale(fontScale,fontScale);
 
+		data = Gdx.app.getPreferences("SaveData");
+
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
-		cameraWidth = 700;
+		cameraWidth = 800;
 		cameraHeight  = (int)(cameraWidth/ screenWidth * screenHeight);
 
 		batch = new SpriteBatch();
