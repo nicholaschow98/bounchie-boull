@@ -2,6 +2,7 @@ package com.mygdx.gameV2;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -24,7 +25,7 @@ public class MainScreen implements Screen {
     public MainScreen(final B_Ball game){
         this.game = game;
 
-        font = new BitmapFont();
+        font = new BitmapFont(new FileHandle("comicsans.ttf"));
         font.setColor(Color.BLACK);
         font.getData().setScale(fontScale,fontScale);
 
