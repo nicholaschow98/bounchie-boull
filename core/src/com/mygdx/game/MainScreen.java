@@ -36,9 +36,9 @@ public class MainScreen implements Screen {
     }
 
     private void initializeButtons(){
-        gameButton = new Button(100,100, 100, 100, game.T_ogBall);
-        shopButton =  new Button(100,300, 100, 100, game.T_shopIcon);
-        skinButton =  new Button(100,500, 100, 100, game.T_skinIcon);
+        gameButton = new Button(100,100, game.T_ogBall);
+        shopButton =  new Button(100,300,  game.T_shopIcon);
+        skinButton =  new Button(100,500, game.T_skinIcon);
         buttons[0] = gameButton;
         buttons[1] = shopButton;
         buttons[2] = skinButton;

@@ -32,11 +32,13 @@ public class Classic_GameMode implements GameMode {
     private float gravity  = 1.7f;
     private float Ball_init_vel = 6.8f;
 
-    private Texture wall_texture = new Texture("badlogic.jpg");
-    private Texture ball_texture = game.T_ogBall;
+    private Texture wall_texture;
+    private Texture ball_texture;
 
     public Classic_GameMode(B_Ball game){
         this.game = game;
+        this.ball_texture = game.T_ogBall;
+        this.wall_texture = game.T_wallTexture;
         this.Walls = new Wall[num_walls];
         this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,80,80,0,0,ball_texture);
         this.init_GenerateWalls();

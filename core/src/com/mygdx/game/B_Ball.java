@@ -18,6 +18,7 @@ public class B_Ball extends Game {
 	Texture T_shopIcon;
 	Texture T_ogBall;
 	Texture T_skinIcon;
+	Texture T_wallTexture;
 
 
 	float screenWidth, screenHeight;
@@ -32,9 +33,10 @@ public class B_Ball extends Game {
 
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+		this.initializeTextures();
 		MainScreen mainmenu = new MainScreen(this);
 		this.setScreen(mainmenu);
-		this.initializeTextures();
+
 	}
 
 	@Override
@@ -49,10 +51,10 @@ public class B_Ball extends Game {
 	}
 
 	private void initializeTextures(){
-
-		T_backButton = new Texture("back_icon_1.png");
-		T_ogBall = new  Texture("ogball_icon.png");
-		T_shopIcon = new Texture("shop_icon.png");
-		T_skinIcon = new Texture("skin_icon.png");
+		this.T_wallTexture new Texture("back_icon_1.png");
+		this.T_backButton = new Texture("back_icon_1.png");
+		this.T_ogBall = new Texture("ogball_icon.png");
+		this.T_shopIcon = new Texture("shop_icon.png");
+		this.T_skinIcon = new Texture("skin_icon.png");
 	}
 }

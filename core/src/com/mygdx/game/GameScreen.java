@@ -26,7 +26,7 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera(game.cameraWidth, game.cameraHeight);
         camera.setToOrtho( false, game.cameraWidth,game.cameraHeight);
         gamemode= new Classic_GameMode(this.game);
-        backButton = new Button(game.cameraWidth*2/8,game.screenHeight*6/8, 100, 100,false, new Texture("badlogic.jpg"));
+        backButton = new Button(game.cameraWidth*2/8,game.screenHeight*6/8, game.T_backButton);
     }
     public void pause(){
 

@@ -17,7 +17,7 @@ public class Button extends Renderable{
         super(x, y, width, height, texture);
         this.active = active;
     }
-    public Button(int x, int y, Texture texture){
+    public Button(float x, float y, Texture texture){
         super(x, y, texture);
         active = true;
     }

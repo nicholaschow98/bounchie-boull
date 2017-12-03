@@ -17,7 +17,7 @@ public abstract class Renderable {
         this.height = height;
         this.texture = texture;
     }
-    public Renderable(int x, int y, Texture texture){
+    public Renderable(float x, float y, Texture texture){
         this.x = x;
         this.y = y;
         this.width = texture.getWidth();

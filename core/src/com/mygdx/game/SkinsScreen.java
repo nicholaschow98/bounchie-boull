@@ -38,7 +38,8 @@ public class SkinsScreen implements Screen {
 
 
     private void initializeButtons(){
-        backButton= new Button(game.cameraWidth/8,game.screenHeight*7/8, 100, 100, game.T_backButton);        buttons[0] = backButton;
+        backButton= new Button(game.cameraWidth/8,game.screenHeight*7/8, game.T_backButton);
+        buttons[0] = backButton;
     }
 
     public void pause(){
