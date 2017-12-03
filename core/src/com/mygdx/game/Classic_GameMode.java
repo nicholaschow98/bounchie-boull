@@ -28,6 +28,7 @@ public class Classic_GameMode implements GameMode {
     private int wallWidth = 30;
     private float wall_yvel = -10;
 
+    private float jumpspeed = 25;
     private float gravity  = 1.7f;
     private float Ball_init_vel = 6.8f;
 
@@ -87,7 +88,7 @@ public class Classic_GameMode implements GameMode {
             this.start();
         }
         if(!lose){
-            Ball.yvel=30;
+            Ball.yvel=jumpspeed;
         }
         if(lose){
             start();
