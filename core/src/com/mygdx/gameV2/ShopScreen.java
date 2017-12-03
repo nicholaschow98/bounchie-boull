@@ -24,7 +24,7 @@ public class ShopScreen implements Screen {
     public ShopScreen(final B_Ball game){
         this.game = game;
 
-        font = new BitmapFont();
+        font = this.game.font;
         font.setColor(Color.BLACK);
         font.getData().setScale(fontScale,fontScale);
 

@@ -17,18 +17,15 @@ public class MainScreen implements Screen {
 
     OrthographicCamera camera;
     B_Ball game;
+
     BitmapFont font;
-    int fontScale = 2;
+
     final int num_of_Buttons = 3;
     Button gameButton, shopButton, skinButton;
     Button buttons[] = new Button[num_of_Buttons];
     public MainScreen(final B_Ball game){
         this.game = game;
-
-        font = new BitmapFont(new FileHandle("comicsans.ttf"));
-        font.setColor(Color.BLACK);
-        font.getData().setScale(fontScale,fontScale);
-
+        this.font  = this.game.font;
         camera = new OrthographicCamera(game.cameraWidth, game.cameraHeight);
         camera.setToOrtho(false, game.cameraWidth,game.cameraHeight);
         camera.update();

@@ -2,8 +2,11 @@ package com.mygdx.gameV2;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.math.Vector3;
 
 
@@ -20,15 +23,24 @@ public class B_Ball extends Game {
 	Texture T_skinIcon;
 	Texture T_wallTexture;
 
+	public BitmapFont font;
+	public int fontScale = 2;
 
 	float screenWidth, screenHeight;
 	public Vector3 touchPos = new Vector3();
 
 	@Override
 	public void create () {
+
+		font = new BitmapFont(Gdx.files.internal("comicsans.fnt"),
+				Gdx.files.internal("comicsans.png"), false);
+		//font = new BitmapFont();
+		font.setColor(Color.BLACK);
+		font.getData().setScale(fontScale,fontScale);
+
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
-		cameraWidth = 400;
+		cameraWidth = 700;
 		cameraHeight  = (int)(cameraWidth/ screenWidth * screenHeight);
 
 		batch = new SpriteBatch();

@@ -16,7 +16,7 @@ public class GameScreen implements Screen {
     B_Ball game;
     GameMode gamemode;
 
-    BitmapFont font = new BitmapFont();
+    BitmapFont font;
 
     Button backButton;
 
@@ -26,6 +26,7 @@ public class GameScreen implements Screen {
         camera.setToOrtho( false, game.cameraWidth,game.cameraHeight);
         gamemode= new Classic_GameMode(this.game);
         backButton = new Button(game.cameraWidth*2/8,game.screenHeight*6/8, game.T_backButton);
+        this.font = this.game.font;
     }
     public void pause(){
 
@@ -68,6 +69,7 @@ public class GameScreen implements Screen {
             }
             gamemode.touch_Update();
         }
+        font.getData().setScale(2);
     }
     public void hide(){
 
