@@ -36,8 +36,7 @@ public class B_Ball extends Game {
 	@Override
 	public void create () {
 
-		font = new BitmapFont(Gdx.files.internal("comicsans.fnt"),
-				Gdx.files.internal("comicsans.png"), false);
+		font = new BitmapFont(Gdx.files.internal("arcade.fnt"),Gdx.files.internal("arcade.png"), false);
 		//font = new BitmapFont();
 		font.setColor(Color.BLACK);
 		font.getData().setScale(fontScale,fontScale);
