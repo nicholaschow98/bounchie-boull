@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.gameV2;
 
 /**
  * Created by Nick on 2017-11-30.

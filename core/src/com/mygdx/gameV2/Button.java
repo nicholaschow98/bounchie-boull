@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.gameV2;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;

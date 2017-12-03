@@ -1,28 +1,27 @@
-package com.mygdx.game;
+package com.mygdx.gameV2;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-
 /**
- * Created by Nick on 2017-11-29.
+ * Created by Nick on 2017-11-30.
  */
 
-public class MainScreen implements Screen {
-
+public class SkinsScreen implements Screen {
     OrthographicCamera camera;
     B_Ball game;
     BitmapFont font;
     int fontScale = 2;
-    final int num_of_Buttons = 3;
-    Button gameButton, shopButton, skinButton;
+
+    final int num_of_Buttons = 1;
+    Button backButton;
     Button buttons[] = new Button[num_of_Buttons];
-    public MainScreen(final B_Ball game){
+
+    public SkinsScreen(final B_Ball game){
         this.game = game;
 
         font = new BitmapFont();
@@ -32,16 +31,14 @@ public class MainScreen implements Screen {
         camera = new OrthographicCamera(game.cameraWidth, game.cameraHeight);
         camera.setToOrtho(false, game.cameraWidth,game.cameraHeight);
         camera.update();
+
         initializeButtons();
     }
 
+
     private void initializeButtons(){
-        gameButton = new Button(100,100, game.T_ogBall);
-        shopButton =  new Button(100,300,  game.T_shopIcon);
-        skinButton =  new Button(100,500, game.T_skinIcon);
-        buttons[0] = gameButton;
-        buttons[1] = shopButton;
-        buttons[2] = skinButton;
+        backButton= new Button(game.cameraWidth/8,game.screenHeight*7/8, game.T_backButton);
+        buttons[0] = backButton;
     }
 
     public void pause(){
@@ -60,32 +57,25 @@ public class MainScreen implements Screen {
         }
         //Start all rendering
         game.batch.begin();
+
         for(Button button: buttons){
             button.drawSelf(this.game);
         }
+
         font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
-        font.draw(game.batch, "FUCK", 100, 700);
+        font.draw(game.batch, "THIS IS THE SKIN MENU BITCHO.\n SKINS AND SHIT BOI", 100, 700);
         game.batch.end();
         //end rendering
     }
     public void inputTouched(){
         game.touchPos.set(Gdx.input.getX(), Gdx.input.getY(),0);
         camera.unproject(game.touchPos);
-
         for(int i = 0;i<num_of_Buttons;i++){
             if(buttons[i].checkPressed(game.touchPos)){
                 switch(i){
                     case 0:
-                        game.setScreen(new GameScreen(this.game));
-                        dispose();
-                        break;
-                    case 1:
-                        game.setScreen(new ShopScreen(this.game));
-                        dispose();
-                        break;
-                    case 2:
-                        game.setScreen(new SkinsScreen(this.game));
-                        dispose();
+                        game.setScreen(new MainScreen(this.game));
+                        //this.dispose();
                         break;
                 }
             }
@@ -107,8 +97,5 @@ public class MainScreen implements Screen {
 
     }
     public void resume(){
-
     }
-
-
 }

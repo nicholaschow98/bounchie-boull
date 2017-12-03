@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.gameV2;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -28,8 +28,8 @@ public class B_Ball extends Game {
 	public void create () {
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
-		cameraWidth = 800;
-		cameraHeight  = (int)(800/ screenWidth * screenHeight);
+		cameraWidth = 400;
+		cameraHeight  = (int)(cameraWidth/ screenWidth * screenHeight);
 
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
@@ -51,7 +51,7 @@ public class B_Ball extends Game {
 	}
 
 	private void initializeTextures(){
-		this.T_wallTexture new Texture("back_icon_1.png");
+		this.T_wallTexture = new Texture("testwall.jpg");
 		this.T_backButton = new Texture("back_icon_1.png");
 		this.T_ogBall = new Texture("ogball_icon.png");
 		this.T_shopIcon = new Texture("shop_icon.png");

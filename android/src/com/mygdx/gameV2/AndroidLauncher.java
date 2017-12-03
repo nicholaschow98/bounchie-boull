@@ -1,10 +1,9 @@
-package com.mygdx.game;
+package com.mygdx.gameV2;
 
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.mygdx.game.B_Ball;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

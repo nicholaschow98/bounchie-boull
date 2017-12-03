@@ -1,18 +1,17 @@
-package com.mygdx.game;
+package com.mygdx.gameV2;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 /**
  * Created by Nick on 2017-11-30.
  */
 
-public class SkinsScreen implements Screen {
+public class ShopScreen implements Screen {
     OrthographicCamera camera;
     B_Ball game;
     BitmapFont font;
@@ -22,7 +21,7 @@ public class SkinsScreen implements Screen {
     Button backButton;
     Button buttons[] = new Button[num_of_Buttons];
 
-    public SkinsScreen(final B_Ball game){
+    public ShopScreen(final B_Ball game){
         this.game = game;
 
         font = new BitmapFont();
@@ -36,7 +35,6 @@ public class SkinsScreen implements Screen {
         initializeButtons();
     }
 
-
     private void initializeButtons(){
         backButton= new Button(game.cameraWidth/8,game.screenHeight*7/8, game.T_backButton);
         buttons[0] = backButton;
@@ -46,7 +44,7 @@ public class SkinsScreen implements Screen {
 
     }
 
-    public  void render(float delta){
+    public void render(float delta){
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -64,7 +62,7 @@ public class SkinsScreen implements Screen {
         }
 
         font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
-        font.draw(game.batch, "THIS IS THE SKIN MENU BITCHO.\n SKINS AND SHIT BOI", 100, 700);
+        font.draw(game.batch, "THIS IS THE SHOP BITCHO", 100, 700);
         game.batch.end();
         //end rendering
     }
@@ -76,7 +74,7 @@ public class SkinsScreen implements Screen {
                 switch(i){
                     case 0:
                         game.setScreen(new MainScreen(this.game));
-                        //this.dispose();
+                        this.dispose();
                         break;
                 }
             }
