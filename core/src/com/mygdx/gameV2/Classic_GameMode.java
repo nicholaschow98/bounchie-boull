@@ -14,26 +14,26 @@ public class Classic_GameMode implements GameMode {
 
     B_Ball game;
 
-    private Wall [] Walls;
-    private Ball Ball;
+    protected Wall [] Walls;
+    protected Ball Ball;
 
     Random rand = new Random();
 
-    private boolean started = false;
-    private boolean lose = false;
+    protected boolean started = false;
+    protected boolean lose = false;
     public int score = 0;
 
-    private int num_walls = 6;
+    protected int num_walls = 6;
 
-    private int wallWidth = 30;
-    private float wall_yvel = -10;
+    protected int wallWidth = 30;
+    protected float wall_yvel = -10;
 
-    private float jumpspeed = 25;
-    private float gravity  = 1.7f;
-    private float Ball_init_vel = 6.8f;
+    protected float jumpspeed = 25;
+    protected float gravity  = 1.7f;
+    protected float Ball_init_vel = 6.8f;
 
-    private Texture wall_texture;
-    private Texture ball_texture;
+    protected Texture wall_texture;
+    protected Texture ball_texture;
 
     public Classic_GameMode(B_Ball game){
         this.game = game;
@@ -56,7 +56,7 @@ public class Classic_GameMode implements GameMode {
         return this.Ball;
     }
 
-    private void init_GenerateWalls(){
+    protected void init_GenerateWalls(){
         Walls[0] = new Wall(game.cameraWidth/8+wallWidth/2,1100, wallWidth,500, 0, wall_yvel,wall_texture);
         Walls[1] = new Wall (game.cameraWidth*7/8-wallWidth/2,400,wallWidth,800,0,wall_yvel,wall_texture);
         for(int i = 2; i<num_walls;i++){
@@ -67,21 +67,21 @@ public class Classic_GameMode implements GameMode {
             }
         }
     }
-    private float generate_left_Wall_Y(int wall){
+    protected float generate_left_Wall_Y(int wall){
         int last_wall = wall-2;
         if(last_wall == -2){
             last_wall = num_walls-2;
         }
         return rand.nextInt(700) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
     }
-    private float generate_right_Wall_Y(int wall){
+    protected float generate_right_Wall_Y(int wall){
         int last_wall = wall-2;
         if(last_wall == -1){
             last_wall = num_walls-1;
         }
         return rand.nextInt(700) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
     }
-    private float generate_Wall_Height(){
+    protected float generate_Wall_Height(){
         return rand.nextInt(900)+300;
     }
 

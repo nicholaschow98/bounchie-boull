@@ -2,8 +2,6 @@ package com.mygdx.gameV2;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -75,7 +73,7 @@ public class MainScreen implements Screen {
             if(buttons[i].checkPressed(game.touchPos)){
                 switch(i){
                     case 0:
-                        game.setScreen(new GameScreen(this.game));
+                        game.setScreen(new GameSelectionScreen(this.game));
                         dispose();
                         break;
                     case 1:

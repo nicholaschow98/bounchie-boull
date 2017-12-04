@@ -20,13 +20,18 @@ public class GameScreen implements Screen {
 
     Button backButton;
 
-    public GameScreen(final B_Ball game){
+    public GameScreen(final B_Ball game, String mode){
         this.game = game;
         camera = new OrthographicCamera(game.cameraWidth, game.cameraHeight);
         camera.setToOrtho( false, game.cameraWidth,game.cameraHeight);
-        gamemode= new Classic_GameMode(this.game);
         backButton = new Button(game.cameraWidth*2/8,game.cameraHeight*5/8, game.T_backButton);
         this.font = this.game.font;
+        if(mode == "Classic"){
+            gamemode = new Classic_GameMode(this.game);
+        }
+        else if(mode == "Staggered"){
+            gamemode = new Staggered_GameMode(this.game);
+        }
     }
     public void pause(){
 

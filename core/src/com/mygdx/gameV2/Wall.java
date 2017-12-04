@@ -11,8 +11,9 @@ public class Wall extends Game_Object {
         super(x, y, width, height,xvel,yvel, texture);
     }
     public void updatePos(){
-        this.x +=this.xvel;
-        this.y += this.yvel;
+        super.updatePos();
+        //this.x +=this.xvel;
+        //this.y += this.yvel;
 
     }
 }
