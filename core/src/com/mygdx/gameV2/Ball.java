@@ -16,5 +16,5 @@ public class Ball extends Game_Object {
     public void updatePos(){
         super.updatePos();
         //this.yvel-=gravity;
-    }
+    }//trying to  fix
 }

@@ -11,6 +11,7 @@ public class SkinManager {
     public SkinManager(int num_skins){
         this.num_skins = num_skins;
     }
+
     private int getBallSkin(){
         return 0;
     }
