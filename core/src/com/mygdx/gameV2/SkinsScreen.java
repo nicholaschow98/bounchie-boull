@@ -23,8 +23,7 @@ public class SkinsScreen implements Screen {
 
     public SkinsScreen(final B_Ball game){
         this.game = game;
-
-        font = new BitmapFont();
+        this.font = game.font;
         font.setColor(Color.BLACK);
         font.getData().setScale(fontScale,fontScale);
 

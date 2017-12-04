@@ -28,7 +28,7 @@ public class B_Ball extends Game {
 	Texture T_wallTexture;
 
 	public BitmapFont font;
-	public int fontScale = 2;
+	public float fontScale = 1.5f;
 
 	float screenWidth, screenHeight;
 	public Vector3 touchPos = new Vector3();
@@ -37,7 +37,6 @@ public class B_Ball extends Game {
 	public void create () {
 
 		font = new BitmapFont(Gdx.files.internal("arcade.fnt"),Gdx.files.internal("arcade.png"), false);
-		//font = new BitmapFont();
 		font.setColor(Color.BLACK);
 		font.getData().setScale(fontScale,fontScale);
 
@@ -53,7 +52,6 @@ public class B_Ball extends Game {
 		this.initializeTextures();
 		MainScreen mainmenu = new MainScreen(this);
 		this.setScreen(mainmenu);
-
 	}
 
 	@Override
