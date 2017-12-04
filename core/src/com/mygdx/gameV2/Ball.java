@@ -8,10 +8,10 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Ball extends Game_Object {
     //int gravity;
-
-    public Ball(float x, float y, float width, float height, float xvel, float yvel, Texture texture){
-        super(x, y, width, height,xvel,yvel, texture);
-        //this.gravity = gravity;
+    BallSkin skin;
+    public Ball(float x, float y, float width, float height, float xvel, float yvel, BallSkin skin){
+        super(x, y, width, height,xvel,yvel, skin.getTexture());
+        this.skin = skin;
     }
     public void updatePos(){
         super.updatePos();

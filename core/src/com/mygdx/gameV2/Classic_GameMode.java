@@ -40,7 +40,7 @@ public class Classic_GameMode implements GameMode {
         this.ball_texture = game.T_ogBall;
         this.wall_texture = game.T_wallTexture;
         this.Walls = new Wall[num_walls];
-        this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,80,80,0,0,ball_texture);
+        this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,80,80,0,0,game.skin_Manager.getBallSkin());
         this.init_GenerateWalls();
     }
 

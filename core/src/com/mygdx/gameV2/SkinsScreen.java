@@ -19,7 +19,8 @@ public class SkinsScreen implements Screen {
 
     final int num_of_Buttons = 1;
     Button backButton;
-    Button buttons[] = new Button[num_of_Buttons];
+    Button buttons[];
+    Button skinButtons[];
 
     public SkinsScreen(final B_Ball game){
         this.game = game;
@@ -27,19 +28,32 @@ public class SkinsScreen implements Screen {
         font.setColor(Color.BLACK);
         font.getData().setScale(fontScale,fontScale);
 
+        buttons = new Button[num_of_Buttons];
+        skinButtons = new Button[game.skin_Manager.num_skins];
+
         camera = new OrthographicCamera(game.cameraWidth, game.cameraHeight);
         camera.setToOrtho(false, game.cameraWidth,game.cameraHeight);
         camera.update();
 
         initializeButtons();
+        initializeSkinButtons();
     }
-
 
     private void initializeButtons(){
         backButton= new Button(game.cameraWidth/8,game.cameraHeight*7/8, game.T_backButton);
         buttons[0] = backButton;
     }
-
+    private void initializeSkinButtons(){
+        int j = 0;
+        for(int i = 0; i < game.skin_Manager.num_skins;i++){
+            int k = i;
+            if((i)%4==0){
+                j++;
+                k=0;
+            }
+            skinButtons[i] = new Button(game.cameraWidth/8+k*175, game.cameraHeight*(6-j)/8,100,100, game.skin_Manager.ballSkin_T[i]);
+        }
+    }
     public void pause(){
 
     }
@@ -58,7 +72,10 @@ public class SkinsScreen implements Screen {
         game.batch.begin();
 
         for(Button button: buttons){
-            button.drawSelf(this.game);
+            button.drawSelf(this.game.batch);
+        }
+        for(Button skinbutton: skinButtons){
+            skinbutton.drawSelf(this.game.batch);
         }
 
         font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
@@ -77,6 +94,11 @@ public class SkinsScreen implements Screen {
                         //this.dispose();
                         break;
                 }
+            }
+        }
+        for(int i = 0;i<game.skin_Manager.num_skins;i++){
+            if(skinButtons[i].checkPressed(game.touchPos)){
+                game.skin_Manager.changeBallSkin(i);
             }
         }
     }

@@ -47,16 +47,16 @@ public class GameScreen implements Screen {
         gamemode.update();
         game.batch.begin();
         for(Wall wall : gamemode.get_Walls()){
-            wall.drawSelf(this.game);
+            wall.drawSelf(this.game.batch);
         }
         font.getData().setScale(7);
         font.setColor(Color.BLACK);
 
-        gamemode.get_Ball().drawSelf(this.game);
+        gamemode.get_Ball().drawSelf(this.game.batch);
         if(gamemode.getLose()==true){
             game.batch.draw(game.img,game.cameraWidth/8,game.cameraHeight*2/3,game.cameraWidth*6/8,game.cameraHeight/4);
             backButton.activate();
-            backButton.drawSelf(this.game);
+            backButton.drawSelf(this.game.batch);
         }
         else{
             backButton.deactivate();

@@ -34,6 +34,6 @@ public class BasicBallSkin implements BallSkin {
     }
 
     public void skinRender(SpriteBatch batch){
-
+        //nothin
     }
 }

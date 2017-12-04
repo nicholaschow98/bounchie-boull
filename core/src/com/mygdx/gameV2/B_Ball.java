@@ -33,6 +33,10 @@ public class B_Ball extends Game {
 	float screenWidth, screenHeight;
 	public Vector3 touchPos = new Vector3();
 
+	int current_skin;
+	int num_skins;
+	SkinManager skin_Manager;
+
 	@Override
 	public void create () {
 
@@ -47,11 +51,14 @@ public class B_Ball extends Game {
 		cameraWidth = 800;
 		cameraHeight  = (int)(cameraWidth/ screenWidth * screenHeight);
 
+
+		this.skin_Manager = new SkinManager(this);
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		this.initializeTextures();
 		MainScreen mainmenu = new MainScreen(this);
 		this.setScreen(mainmenu);
+
 	}
 
 	@Override

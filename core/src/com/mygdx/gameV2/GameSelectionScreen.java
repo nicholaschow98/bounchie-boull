@@ -94,7 +94,7 @@ public class GameSelectionScreen implements Screen{
     }*/
         game.batch.begin();
         for(int i = 0; i < Modes; i++){
-            buttons[i].drawSelf(this.game);
+            buttons[i].drawSelf(this.game.batch);
         }
         game.batch.end();
     }

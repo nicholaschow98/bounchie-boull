@@ -1,6 +1,7 @@
 package com.mygdx.gameV2;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Created by Nick on 2017-11-29.
@@ -24,8 +25,8 @@ public abstract class Renderable {
         this.height = texture.getHeight();
         this.texture = texture;
     }
-    public void drawSelf(B_Ball game){
-        game.batch.draw(this.texture, this.x,this.y,this.width,this.height);
+    public void drawSelf(SpriteBatch batch){
+        batch.draw(this.texture, this.x,this.y,this.width,this.height);
     }
     public void dispose(){
         //this.texture.dispose();

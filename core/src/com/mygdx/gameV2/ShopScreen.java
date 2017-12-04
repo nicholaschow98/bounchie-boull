@@ -58,7 +58,7 @@ public class ShopScreen implements Screen {
         game.batch.begin();
 
         for(Button button: buttons){
-            button.drawSelf(this.game);
+            button.drawSelf(this.game.batch);
         }
 
         font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);

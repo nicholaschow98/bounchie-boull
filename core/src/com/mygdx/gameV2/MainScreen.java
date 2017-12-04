@@ -56,7 +56,7 @@ public class MainScreen implements Screen {
         //Start all rendering
         game.batch.begin();
         for(Button button: buttons){
-            button.drawSelf(this.game);
+            button.drawSelf(this.game.batch);
         }
         font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
         font.getData().setScale(1.5f,1.5f);
