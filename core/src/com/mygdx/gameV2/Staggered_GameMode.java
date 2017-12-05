@@ -113,6 +113,10 @@ public class Staggered_GameMode extends Classic_GameMode {
         }
     }
     public void lose(){
+        if(this.score > this.data.getInteger(gamemodeName+"_Highscore",0)){
+            this.data.putInteger(gamemodeName+"_Highscore",this.score);
+            this.data.flush();
+        }
         lose = true;
     }
     private void incDiff(){
