@@ -20,6 +20,8 @@ public class GameScreen implements Screen {
 
     Button backButton;
 
+    int highscore;
+
     String mode;
     public GameScreen(final B_Ball game, String mode){
         this.game = game;
@@ -30,9 +32,11 @@ public class GameScreen implements Screen {
         this.font = this.game.font;
         if(mode.equals("Classic")){
             gamemode = new Classic_GameMode(this.game, this.game.data);
+            this.highscore = this.game.data.getInteger("Classic_Highscore", 0);
         }
         else if(mode.equals("Staggered")){
             gamemode = new Staggered_GameMode(this.game, this.game.data);
+            this.highscore = this.game.data.getInteger("Staggered_Highscore", 0);
         }
     }
     public void pause(){
@@ -56,7 +60,11 @@ public class GameScreen implements Screen {
 
         gamemode.get_Ball().drawSelf(this.game.batch);
         if(gamemode.getLose()==true){
+            if(gamemode.getScore()>this.highscore){
+                this.highscore = gamemode.getScore();
+            }
             game.batch.draw(game.img,game.cameraWidth/8,game.cameraHeight*2/3,game.cameraWidth*6/8,game.cameraHeight/4);
+            font.draw(game.batch, "Highscore: "+this.highscore, game.cameraWidth/10, game.cameraHeight*5/8);//-font.getSpaceWidth()/2
             backButton.activate();
             backButton.drawSelf(this.game.batch);
         }
