@@ -26,8 +26,13 @@ public class GameSelectionScreen implements Screen{
     String classic = "Classic";
     String staggered = "Staggered";
 
+    int Classic_Highscore;
+    int Staggered_Highscore;
+
     public GameSelectionScreen(B_Ball game){
         this.game = game;
+        this.Classic_Highscore = this.game.data.getInteger("Classic_Highscore",0);
+        this.Staggered_Highscore = this.game.data.getInteger("Staggered_Highscore",0);
         camera = new OrthographicCamera(game.cameraWidth, game.cameraHeight);
         camera.setToOrtho( false, game.cameraWidth,game.cameraHeight);
 
@@ -39,8 +44,8 @@ public class GameSelectionScreen implements Screen{
 
     }
     private void initializeButtons(){
-        ClassicMode = new Button(game.cameraWidth*1/3, game.cameraHeight*3/8, game.T_ogBall);
-        StaggeredMode =  new Button(game.cameraWidth*2/3, game.cameraHeight*3/8, game.T_ogBall);
+        ClassicMode = new Button(game.cameraWidth*1/6-game.T_ogBall.getWidth()/2, game.cameraHeight*3/8, game.T_ogBall);
+        StaggeredMode =  new Button(game.cameraWidth*4/6-game.T_ogBall.getWidth()/2, game.cameraHeight*3/8, game.T_ogBall);
         //TrollMode = new Button (WHATEVER)
         backButton = new Button(game.cameraWidth*2/8,game.cameraHeight*5/8, game.T_backButton);
         buttons[0] = ClassicMode;
@@ -96,6 +101,9 @@ public class GameSelectionScreen implements Screen{
         for(int i = 0; i < Modes; i++){
             buttons[i].drawSelf(this.game.batch);
         }
+        backButton.drawSelf(this.game.batch);
+        game.font.draw(game.batch,"Highscore: "+Classic_Highscore,buttons[0].x-50,buttons[0].y-300);
+        game.font.draw(game.batch,"Highscore: "+Staggered_Highscore,buttons[1].x-50,buttons[1].y-300);
         game.batch.end();
     }
 

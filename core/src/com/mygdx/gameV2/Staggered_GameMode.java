@@ -1,5 +1,6 @@
 package com.mygdx.gameV2;
 
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.Random;
@@ -12,8 +13,9 @@ import static java.lang.Math.abs;
 
 public class Staggered_GameMode extends Classic_GameMode {
 
-    public Staggered_GameMode(B_Ball game){
-        super(game);
+    public Staggered_GameMode(B_Ball game, Preferences data){
+        super(game, data);
+        this.gamemodeName = "Staggered";
     }
 
     protected void init_GenerateWalls(){

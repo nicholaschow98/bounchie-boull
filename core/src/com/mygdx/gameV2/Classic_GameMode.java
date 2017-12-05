@@ -1,5 +1,6 @@
 package com.mygdx.gameV2;
 
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.Random;
@@ -35,8 +36,13 @@ public class Classic_GameMode implements GameMode {
     protected Texture wall_texture;
     protected Texture ball_texture;
 
-    public Classic_GameMode(B_Ball game){
+    Preferences data;
+
+    public String gamemodeName = "Classic";
+
+    public Classic_GameMode(B_Ball game, Preferences data){
         this.game = game;
+        this.data = data;
         this.ball_texture = game.T_ogBall;
         this.wall_texture = game.T_wallTexture;
         this.Walls = new Wall[num_walls];
@@ -72,14 +78,14 @@ public class Classic_GameMode implements GameMode {
         if(last_wall == -2){
             last_wall = num_walls-2;
         }
-        return rand.nextInt(700) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
+        return rand.nextInt(900) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
     }
     protected float generate_right_Wall_Y(int wall){
         int last_wall = wall-2;
         if(last_wall == -1){
             last_wall = num_walls-1;
         }
-        return rand.nextInt(700) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
+        return rand.nextInt(900) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
     }
     protected float generate_Wall_Height(){
         return rand.nextInt(900)+300;
@@ -169,6 +175,10 @@ public class Classic_GameMode implements GameMode {
         }
     }
     public void lose(){
+        if(this.score > this.data.getInteger(gamemodeName+"_Highscore",0)){
+            this.data.putInteger(gamemodeName+"_Highscore",this.score);
+            this.data.flush();
+        }
         lose = true;
     }
     private void incDiff(){

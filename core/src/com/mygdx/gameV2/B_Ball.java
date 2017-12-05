@@ -33,8 +33,11 @@ public class B_Ball extends Game {
 	float screenWidth, screenHeight;
 	public Vector3 touchPos = new Vector3();
 
-	int current_skin;
-	int num_skins;
+
+	int cash;
+	int classicHighscore;
+	int staggeredHighscore;
+
 	SkinManager skin_Manager;
 
 	@Override
