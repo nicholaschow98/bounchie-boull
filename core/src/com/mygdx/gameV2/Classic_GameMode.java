@@ -139,6 +139,7 @@ public class Classic_GameMode implements GameMode {
                         if(!lose){
                             score++;
                             incDiff();
+                            this.game.cash++;
                         }
                         Ball.xvel=-1*abs(Ball.xvel);
                         Ball.x = Walls[i].x-Ball.width;
@@ -146,6 +147,7 @@ public class Classic_GameMode implements GameMode {
                         if(!lose){
                             score++;
                             incDiff();
+                            this.game.cash++;
                         }
                         Ball.xvel=abs(Ball.xvel);
                         Ball.x = Walls[i].x+Walls[i].width;

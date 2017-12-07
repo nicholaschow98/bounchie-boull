@@ -74,8 +74,11 @@ public class SkinsScreen implements Screen {
         for(Button button: buttons){
             button.drawSelf(this.game.batch);
         }
-        for(Button skinbutton: skinButtons){
-            skinbutton.drawSelf(this.game.batch);
+        for(int i = 0;i<game.skin_Manager.num_skins;i++){
+            if(game.skin_Manager.unlocked[i]){
+                skinButtons[i].drawSelf(this.game.batch);
+            }
+
         }
 
         font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
@@ -97,8 +100,10 @@ public class SkinsScreen implements Screen {
             }
         }
         for(int i = 0;i<game.skin_Manager.num_skins;i++){
-            if(skinButtons[i].checkPressed(game.touchPos)){
-                game.skin_Manager.changeBallSkin(i);
+            if(game.skin_Manager.unlocked[i]){
+                if (skinButtons[i].checkPressed(game.touchPos)) {
+                    game.skin_Manager.changeBallSkin(i);
+                }
             }
         }
     }

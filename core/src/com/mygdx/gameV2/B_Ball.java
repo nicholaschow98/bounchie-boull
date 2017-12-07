@@ -35,8 +35,6 @@ public class B_Ball extends Game {
 
 
 	int cash;
-	int classicHighscore;
-	int staggeredHighscore;
 
 	SkinManager skin_Manager;
 
@@ -49,13 +47,14 @@ public class B_Ball extends Game {
 
 		data = Gdx.app.getPreferences("SaveData");
 
+		loadData();
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
 		cameraWidth = 800;
 		cameraHeight  = (int)(cameraWidth/ screenWidth * screenHeight);
 
 
-		this.skin_Manager = new SkinManager(this);
+		this.skin_Manager = new SkinManager(this, data);
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		this.initializeTextures();
@@ -63,7 +62,9 @@ public class B_Ball extends Game {
 		this.setScreen(mainmenu);
 
 	}
-
+	private void loadData(){
+		this.cash = data.getInteger("cash",0);
+	}
 	@Override
 	public void render () {
 		batch.enableBlending();
