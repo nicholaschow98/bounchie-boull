@@ -26,7 +26,7 @@ public class GM2 implements GameMode {
 
     protected int num_walls = 8;
 
-    protected int wallWidth = 65;
+    protected int wallWidth = 30;
     protected float wall_yvel = -13;
     protected float wall_xvel= 1;
 
