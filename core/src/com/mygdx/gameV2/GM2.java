@@ -193,7 +193,16 @@ public class GM2 implements GameMode {
         }
         for(Wall wall:Walls){
             wall.yvel+=wall_yvel/130;
-            wall.xvel*=-1;
+            int rint=rand.nextInt(2)-1;
+            int nnint=-rint^-1;
+            wall.xvel*=nnint;
+
+            /*if(wall.x+wall.width<game.cameraWidth){
+                wall.xvel*=-1;
+            }
+            if(wall.x<0){
+                wall.xvel*=-1;
+            }*/
         }
     }
     public boolean getLose(){
