@@ -13,8 +13,8 @@ import static java.lang.Math.abs;
 
 public class Staggered_GameMode extends Classic_GameMode {
 
-    public Staggered_GameMode(B_Ball game, Preferences data){
-        super(game, data);
+    public Staggered_GameMode(B_Ball game){
+        super(game);
         this.gamemodeName = "Staggered";
     }
 
@@ -113,10 +113,13 @@ public class Staggered_GameMode extends Classic_GameMode {
         }
     }
     public void lose(){
-        if(this.score > this.data.getInteger(gamemodeName+"_Highscore",0)){
-            this.data.putInteger(gamemodeName+"_Highscore",this.score);
-            this.data.flush();
+        if(this.score > this.game.data.getInteger(gamemodeName+"_Highscore",0)){
+            this.game.data.putInteger(gamemodeName+"_Highscore",this.score);
+
         }
+        this.game.cash+=this.score;
+        this.game.data.putInteger("cash",this.game.cash);
+        this.game.data.flush();
         lose = true;
     }
     private void incDiff(){

@@ -63,7 +63,7 @@ public class B_Ball extends Game {
 
 	}
 	private void loadData(){
-		this.cash = data.getInteger("cash",0);
+		this.cash = data.getInteger( "cash",0);
 	}
 	@Override
 	public void render () {

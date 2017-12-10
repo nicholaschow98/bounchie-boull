@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 /**
@@ -17,8 +18,10 @@ public class GameScreen implements Screen {
     GameMode gamemode;
 
     BitmapFont font;
-
+    int num_buttons = 2;
     Button backButton;
+    Button playButton;
+    Button [] buttons = new Button[num_buttons];
 
     int highscore;
 
@@ -28,14 +31,16 @@ public class GameScreen implements Screen {
         this.mode = mode;
         camera = new OrthographicCamera(game.cameraWidth, game.cameraHeight);
         camera.setToOrtho( false, game.cameraWidth,game.cameraHeight);
-        backButton = new Button(game.cameraWidth*2/8,game.cameraHeight*5/8, game.T_backButton);
+        backButton = buttons[0] = new styleButton(1.5f,"BACK",game.cameraWidth*1/4-40, game.cameraHeight*1/2,game.skin_Manager.button_file_names);
+        playButton = buttons[1] = new styleButton(1.5f,"RETRY",game.cameraWidth*2/4+20, game.cameraHeight*1/2,game.skin_Manager.button_file_names);
+
         this.font = this.game.font;
         if(mode.equals("Classic")){
-            gamemode = new Classic_GameMode(this.game, this.game.data);
+            gamemode = new Classic_GameMode(this.game);
             this.highscore = this.game.data.getInteger("Classic_Highscore", 0);
         }
         else if(mode.equals("Staggered")){
-            gamemode = new Staggered_GameMode(this.game, this.game.data);
+            gamemode = new Staggered_GameMode(this.game);
             this.highscore = this.game.data.getInteger("Staggered_Highscore", 0);
         }
     }
@@ -52,35 +57,55 @@ public class GameScreen implements Screen {
 
         gamemode.update();
         game.batch.begin();
+        font.setColor(Color.BLACK);
         for(Wall wall : gamemode.get_Walls()){
             wall.drawSelf(this.game.batch);
         }
-        font.getData().setScale(7);
-        font.setColor(Color.BLACK);
+        if(!gamemode.getStarted()){
+            font.draw(game.batch, "TAP TO START", game.cameraWidth/2-200, game.cameraHeight*5/8);
+        }
 
         gamemode.get_Ball().drawSelf(this.game.batch);
         if(gamemode.getLose()==true){
             if(gamemode.getScore()>this.highscore){
                 this.highscore = gamemode.getScore();
             }
-            game.batch.draw(game.img,game.cameraWidth/8,game.cameraHeight*2/3,game.cameraWidth*6/8,game.cameraHeight/4);
-            font.draw(game.batch, "Highscore: "+this.highscore, game.cameraWidth/10, game.cameraHeight*5/8);//-font.getSpaceWidth()/2
-            backButton.activate();
-            backButton.drawSelf(this.game.batch);
+            font.getData().setScale(1.5f);
+            font.draw(game.batch, "Highscore x "+this.highscore, game.cameraWidth/4+56, game.cameraHeight*5/8);//-font.getSpaceWidth()/2
+            for(Button button:buttons){
+                button.activate();
+                button.drawSelf(this.game.batch);
+            }
         }
         else{
-            backButton.deactivate();
-        }
-        font.draw(game.batch, ""+gamemode.getScore(), game.cameraWidth/2-font.getSpaceWidth()/2, game.cameraHeight*7/8);//-font.getSpaceWidth()/2
+             for(Button button:buttons){
+                    button.deactivate();
+                }
+            }
+        font.getData().setScale(7);
+        font.draw(game.batch, ""+gamemode.getScore(), game.cameraWidth/2-70, game.cameraHeight*6/8);//-font.getSpaceWidth()/2
         game.batch.end();
 
         if(Gdx.input.isTouched()){
             game.touchPos.set(Gdx.input.getX(), Gdx.input.getY(),0);
             camera.unproject(game.touchPos);
 
-            if(backButton.checkPressed(game.touchPos)){
-                game.setScreen(new MainScreen(game));
-                this.dispose();
+            for(int i = 0; i < num_buttons;i++){
+                if(buttons[i].checkPressed(game.touchPos)){
+                    switch (i){
+                        case 0:
+                        {
+                            game.setScreen(new MainScreen(game));
+                            this.dispose();
+                            break;
+                        }
+                        case 1:
+                        {
+                            gamemode.start();
+                            break;
+                        }
+                    }
+                }
             }
             gamemode.touch_Update();
         }

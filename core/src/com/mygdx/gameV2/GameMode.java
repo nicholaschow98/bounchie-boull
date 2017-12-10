@@ -13,4 +13,5 @@ public interface GameMode {
     void touch_Update();
     void lose();
     void start();
+    boolean getStarted();
 }

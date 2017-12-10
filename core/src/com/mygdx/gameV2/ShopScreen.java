@@ -47,7 +47,7 @@ public class ShopScreen implements Screen {
 
     private void initializeButtons(){
         backButton= buttons[0]= new Button(game.cameraWidth/8,game.cameraHeight*7/8, game.T_backButton);
-        buyButton= buttons[1] = new Button(game.cameraWidth/2-game.T_shopIcon.getWidth()/2,game.cameraHeight/2, game.T_shopIcon);
+        buyButton= buttons[1] = new styleButton(2.5f,"BUY SKIN",100,game.cameraHeight/2, game.skin_Manager.button_file_names);
     }
 
     public void pause(){
@@ -90,8 +90,10 @@ public class ShopScreen implements Screen {
                         this.dispose();
                         break;
                     case 1:
-                        if(game.cash>=10&&Gdx.input.justTouched()){
-                            game.cash-=10;
+                        if(this.game.cash>=10&&Gdx.input.justTouched()){
+                            this.game.cash-=10;
+                            this.game.data.putInteger("cash",this.game.cash);
+                            this.game.data.flush();
                             this.game.skin_Manager.unlockSkin(rand.nextInt(game.skin_Manager.num_skins));
                             this.bought = true;
                         }

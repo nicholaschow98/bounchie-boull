@@ -19,6 +19,7 @@ public class SkinManager {
     BallSkin ballSkin;
     B_Ball game;
     boolean [] unlocked;
+    String [] button_file_names;
 
     public SkinManager(B_Ball game, Preferences data){
         this.game = game;
@@ -27,7 +28,8 @@ public class SkinManager {
         loadSkinPaths();
         loadTextures();
         loadSkinUnlocked();
-        this.ballSkin = new BasicBallSkin(ballSkin_T[1]);
+        this.ballSkin = new BasicBallSkin(ballSkin_T[current_skin]);
+        this.button_file_names= new String[] {"sbutton/defButton_0.png","sbutton/defButton_1.png","sbutton/defButton_2.png"};
     }
 
     private void loadTextures(){
@@ -63,6 +65,7 @@ public class SkinManager {
         this.current_skin = i;
         this.data.putBoolean("skin_"+i,true);
         this.data.putInteger("selected_skin",i);
+        this.data.flush();
     }
 
     public void changeBallSkin(int i){

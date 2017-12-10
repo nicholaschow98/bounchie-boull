@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector3;
  * Created by Nick on 2017-11-29.
  */
 
-public class Button extends Renderable{
+public class Button extends Renderable implements Pressable{
     private boolean active;
     public Button(float x, float y, float width, float height, Texture texture){
         super(x, y, width, height, texture);

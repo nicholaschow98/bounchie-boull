@@ -44,10 +44,11 @@ public class GameSelectionScreen implements Screen{
 
     }
     private void initializeButtons(){
-        ClassicMode = new Button(game.cameraWidth*1/6-game.T_ogBall.getWidth()/2, game.cameraHeight*3/8, game.T_ogBall);
-        StaggeredMode =  new Button(game.cameraWidth*4/6-game.T_ogBall.getWidth()/2, game.cameraHeight*3/8, game.T_ogBall);
+        ClassicMode = new styleButton(2.5f,"CLASSIC",game.cameraWidth*1/6, game.cameraHeight*4/8,game.skin_Manager.button_file_names);
+
+        StaggeredMode = new styleButton(2.5f,"STAGGERED",game.cameraWidth*1/6, game.cameraHeight*3/8,game.skin_Manager.button_file_names);
         //TrollMode = new Button (WHATEVER)
-        backButton = new Button(game.cameraWidth*2/8,game.cameraHeight*5/8, game.T_backButton);
+        backButton = new styleButton(1.5f,"BACK",game.cameraWidth*1/10, game.cameraHeight*7/8,game.skin_Manager.button_file_names);
         buttons[0] = ClassicMode;
         buttons[1] = StaggeredMode;
         //buttons[2] = TrollMode;
@@ -102,15 +103,18 @@ public class GameSelectionScreen implements Screen{
             buttons[i].drawSelf(this.game.batch);
         }
         backButton.drawSelf(this.game.batch);
-        game.font.draw(game.batch,"Highscore: "+Classic_Highscore,buttons[0].x-50,buttons[0].y-300);
-        game.font.draw(game.batch,"Highscore: "+Staggered_Highscore,buttons[1].x-50,buttons[1].y-300);
+        game.font.draw(game.batch,"Highscore: "+Classic_Highscore,buttons[0].x+50,buttons[0].y-15);
+        game.font.draw(game.batch,"Highscore: "+Staggered_Highscore,buttons[1].x+50,buttons[1].y-15);
         game.batch.end();
     }
 
     public void inputTouched() {
         game.touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(game.touchPos);
-
+        if(backButton.checkPressed(game.touchPos)){
+            game.setScreen(new MainScreen(this.game));
+            dispose();
+        }
         for (int i = 0; i < Modes; i++) {
             if (buttons[i].checkPressed(game.touchPos)) {
                 switch (i) {

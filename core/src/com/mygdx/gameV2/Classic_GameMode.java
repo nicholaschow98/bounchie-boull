@@ -1,5 +1,6 @@
 package com.mygdx.gameV2;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -27,22 +28,20 @@ public class Classic_GameMode implements GameMode {
     protected int num_walls = 6;
 
     protected int wallWidth = 30;
-    protected float wall_yvel = -10;
+    protected float wall_yvel = -13;
 
     protected float jumpspeed = 25;
-    protected float gravity  = 1.7f;
+    protected float gravity  = 1.85f;
     protected float Ball_init_vel = 6.8f;
 
     protected Texture wall_texture;
     protected Texture ball_texture;
 
-    Preferences data;
 
     public String gamemodeName = "Classic";
 
-    public Classic_GameMode(B_Ball game, Preferences data){
+    public Classic_GameMode(B_Ball game){
         this.game = game;
-        this.data = data;
         this.ball_texture = game.T_ogBall;
         this.wall_texture = game.T_wallTexture;
         this.Walls = new Wall[num_walls];
@@ -78,29 +77,25 @@ public class Classic_GameMode implements GameMode {
         if(last_wall == -2){
             last_wall = num_walls-2;
         }
-        return rand.nextInt(900) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
+        return rand.nextInt(800) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
     }
     protected float generate_right_Wall_Y(int wall){
         int last_wall = wall-2;
         if(last_wall == -1){
             last_wall = num_walls-1;
         }
-        return rand.nextInt(900) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
+        return rand.nextInt(800) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
     }
     protected float generate_Wall_Height(){
-        return rand.nextInt(900)+300;
+        return rand.nextInt(900)+300-this.score;
     }
 
     public void touch_Update(){
-        if(!started){
+        if(!started&&Gdx.input.justTouched()){
             this.start();
         }
         if(!lose){
             Ball.yvel=jumpspeed;
-        }
-        if(lose){
-            start();
-            lose=false;
         }
     }
     public void update(){
@@ -177,20 +172,21 @@ public class Classic_GameMode implements GameMode {
         }
     }
     public void lose(){
-        if(this.score > this.data.getInteger(gamemodeName+"_Highscore",0)){
-            this.data.putInteger(gamemodeName+"_Highscore",this.score);
-            this.data.flush();
+        if(this.score > this.game.data.getInteger(gamemodeName+"_Highscore",0)){
+            this.game.data.putInteger(gamemodeName+"_Highscore",this.score);
         }
+        this.game.data.putInteger("cash",this.game.cash);
+        this.game.data.flush();
         lose = true;
     }
     private void incDiff(){
         if(Ball.xvel>0){
             Ball.xvel+=Ball_init_vel/300;
         }else{
-            Ball.xvel-=Ball_init_vel/100;
+            Ball.xvel-=Ball_init_vel/300;
         }
         for(Wall wall:Walls){
-            wall.yvel+=wall_yvel/60;
+            wall.yvel+=wall_yvel/130;
         }
     }
     public boolean getLose(){
@@ -207,6 +203,9 @@ public class Classic_GameMode implements GameMode {
         this.lose = false;
         Ball.xvel = Ball_init_vel;
 
+    }
+    public boolean getStarted(){
+        return this.started;
     }
 }
 
