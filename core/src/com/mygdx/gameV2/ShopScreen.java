@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import java.util.Random;
@@ -26,6 +27,7 @@ public class ShopScreen implements Screen {
     Button buyButton;
     Button buttons[] = new Button[num_of_Buttons];
     int bought;
+    final int price = 100;
 
     public ShopScreen(final B_Ball game){
         this.game = game;
@@ -46,7 +48,7 @@ public class ShopScreen implements Screen {
     }
 
     private void initializeButtons(){
-        backButton= buttons[0]= new Button(game.cameraWidth/8,game.cameraHeight*7/8, game.T_backButton);
+        backButton= buttons[0]= new styleButton(1.5f,"BACK",game.cameraWidth*1/10, game.cameraHeight*7/8,game.skin_Manager.button_file_names);
         buyButton= buttons[1] = new styleButton(2.5f,"BUY SKIN",100,game.cameraHeight/2, game.skin_Manager.button_file_names);
     }
 
@@ -74,7 +76,8 @@ public class ShopScreen implements Screen {
         font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
 
         if(this.bought!=-1){
-            font.draw(game.batch, "Ye got skin number "+game.skin_Manager.current_skin+".", 100, 350);
+            font.draw(game.batch, "Ye got skin number "+this.bought +".", 100, 350);
+            game.batch.draw(new Texture(game.skin_Manager.filenames[this.bought][0]),300,200);
         }
         game.batch.end();
         //end rendering
@@ -90,8 +93,9 @@ public class ShopScreen implements Screen {
                         this.dispose();
                         break;
                     case 1:
-                        if(this.game.cash>=10&&Gdx.input.justTouched()){
-                            this.game.cash-=10;
+                        if(this.game.cash>=price&&Gdx.input.justTouched()){
+                            rand = new Random();
+                            this.game.cash-=price;
                             this.game.data.putInteger("cash",this.game.cash);
                             this.game.data.flush();
                             this.bought = rand.nextInt(game.skin_Manager.num_skins);
