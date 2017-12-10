@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
+import static java.lang.Math.abs;
+
 
 /**
  * Created by Nick on 2017-11-29.
@@ -21,6 +23,9 @@ public class MainScreen implements Screen {
     final int num_of_Buttons = 3;
     Button gameButton, shopButton, skinButton;
     Button buttons[] = new Button[num_of_Buttons];
+
+    Ball Ball;
+
     public MainScreen(final B_Ball game){
         this.game = game;
         this.font  = this.game.font;
@@ -28,12 +33,14 @@ public class MainScreen implements Screen {
         camera.setToOrtho(false, game.cameraWidth,game.cameraHeight);
         camera.update();
         initializeButtons();
+        this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,80,80,0,0,game.skin_Manager.getBallSkin());
+        this.Ball.xvel=0.001f;
     }
 
     private void initializeButtons(){
-        gameButton = new Button(100,100, game.T_ogBall);
-        shopButton =  new Button(100,300,  game.T_shopIcon);
-        skinButton =  new Button(100,500, game.T_skinIcon);
+        gameButton = new styleButton(2,"PLAY",game.cameraWidth*3/10, game.cameraHeight*6/16,game.skin_Manager.button_file_names);
+        shopButton =  new styleButton(2,"SHOP",game.cameraWidth*3/10, game.cameraHeight*4/16,game.skin_Manager.button_file_names);
+        skinButton =  new styleButton(2,"SKINS MENU",game.cameraWidth*3/10, game.cameraHeight*2/16,game.skin_Manager.button_file_names);
         buttons[0] = gameButton;
         buttons[1] = shopButton;
         buttons[2] = skinButton;
@@ -49,7 +56,7 @@ public class MainScreen implements Screen {
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
-
+        updateBall();
         if(Gdx.input.isTouched()){
             inputTouched();
         }
@@ -58,17 +65,46 @@ public class MainScreen implements Screen {
         for(Button button: buttons){
             button.drawSelf(this.game.batch);
         }
-        font.draw(game.batch,"Cash: "+game.cash,500,900);
-        font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
+
+        Ball.drawSelf(this.game.batch);
+        font.draw(game.batch,"You got "+game.cash+" cashes",200,900);
+        font.draw(game.batch, game.touchPos.x+" x "+game.touchPos.y, 50, 100);
         font.getData().setScale(1.5f,1.5f);
-        font.draw(game.batch, "cam Height:"+game.cameraHeight+"   screen Height:"+game.screenHeight, 100, 700);
         font.getData().setScale(game.fontScale,game.fontScale);
         game.batch.end();
         //end rendering
     }
+
+    public void updateBall(){
+        Ball.updatePos();
+        if(Ball.x+Ball.width>=game.cameraWidth){
+            Ball.x = game.cameraWidth-Ball.width;
+            Ball.xvel*=-1;
+        }else if(Ball.x<0){
+            Ball.x = 0;
+            Ball.xvel*=-1;
+        }
+        if(Ball.y<game.cameraHeight/2-75){
+            Ball.y = game.cameraHeight/2-75;
+            Ball.yvel*=-0.5;
+            Ball.xvel*=0.9;
+            if(Ball.yvel>-0.5&&Ball.yvel<0){
+                Ball.yvel = 0;
+            }
+        }
+        if(Ball.y>10000){
+            Ball.y = 0;
+            Ball.yvel = 0;
+        }
+        Ball.yvel-=1.85f;
+    }
+
     public void inputTouched(){
         game.touchPos.set(Gdx.input.getX(), Gdx.input.getY(),0);
         camera.unproject(game.touchPos);
+
+        Ball.xvel=Ball.xvel/abs(Ball.xvel)*10f;
+        Ball.yvel = 25;
 
         for(int i = 0;i<num_of_Buttons;i++){
             if(buttons[i].checkPressed(game.touchPos)){

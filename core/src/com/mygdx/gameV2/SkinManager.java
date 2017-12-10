@@ -73,7 +73,6 @@ public class SkinManager {
 
     public void unlockSkin(int i){
         this.unlocked[i] = true;
-        this.current_skin = i;
         this.data.putBoolean("skin_"+i,true);
         this.data.putInteger("selected_skin",i);
         this.data.flush();

@@ -82,6 +82,8 @@ public class SkinsScreen implements Screen {
                     game.batch.draw(new Texture("dbox.png"),skinButtons[i].x-30,skinButtons[i].y-30,skinButtons[i].width+60,skinButtons[i].height+60);
                 }
                 skinButtons[i].drawSelf(this.game.batch);
+            }else{
+                game.batch.draw(new Texture("about_icon.png"),skinButtons[i].x,skinButtons[i].y,skinButtons[i].width,skinButtons[i].height);
             }
 
         }
@@ -103,7 +105,7 @@ public class SkinsScreen implements Screen {
             }
         }
         for(int i = 0;i<game.skin_Manager.num_skins;i++){
-            if(game.skin_Manager.unlocked[i]){
+            if(game.skin_Manager.unlocked[i]&&Gdx.input.justTouched()){
                 if (skinButtons[i].checkPressed(game.touchPos)) {
                     game.skin_Manager.changeBallSkin(i);
                 }
