@@ -45,13 +45,14 @@ public class SkinsScreen implements Screen {
     }
     private void initializeSkinButtons(){
         int j = 0;
+        int k = 0;
         for(int i = 0; i < game.skin_Manager.num_skins;i++){
-            int k = i;
             if((i)%4==0){
                 j++;
                 k=0;
             }
-            skinButtons[i] = new Button(game.cameraWidth/8+k*175, game.cameraHeight*(6-j)/8,100,100, game.skin_Manager.ballSkin_T[i]);
+            skinButtons[i] = new Button(game.cameraWidth/8+k*175, game.cameraHeight*(7-j)/8,100,100, game.skin_Manager.ballSkin_T[i]);
+            k++;
         }
     }
     public void pause(){

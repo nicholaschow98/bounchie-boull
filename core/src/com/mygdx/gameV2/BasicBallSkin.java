@@ -9,12 +9,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BasicBallSkin implements BallSkin {
     private Texture ballTexture;
-
-    public BasicBallSkin(Texture ballTexture){
-        this.ballTexture = ballTexture;
+    private String name;
+    private String description;
+    private int id;
+    public BasicBallSkin(String filename){
+        this.ballTexture = new Texture(filename);
     }
     public Texture getTexture(){
         return this.ballTexture;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public String getDescription(){
+        return this.description;
+    }
+
+    public int getID(){
+        return this.id;
     }
 
     public void onCollide(Ball ball){

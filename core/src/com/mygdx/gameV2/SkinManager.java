@@ -8,10 +8,11 @@ import com.badlogic.gdx.graphics.Texture;
  */
 
 public class SkinManager {
-    public int num_skins = 5;
+    public int num_skins = 21;
+    public int num_basic_skins = 21;
     public int current_skin = 0;
 
-    String [] filenames;
+    String [][] filenames;
     Texture[] ballSkin_T;
 
     Preferences data;
@@ -28,23 +29,21 @@ public class SkinManager {
         loadSkinPaths();
         loadTextures();
         loadSkinUnlocked();
-        this.ballSkin = new BasicBallSkin(ballSkin_T[current_skin]);
+        changeBallSkin(this.current_skin);
         this.button_file_names= new String[] {"sbutton/defButton_0.png","sbutton/defButton_1.png","sbutton/defButton_2.png"};
     }
 
     private void loadTextures(){
         ballSkin_T= new Texture[num_skins];
         for(int i = 0; i < num_skins;i++){
-            this.ballSkin_T[i] = new Texture(filenames[i]);
+            this.ballSkin_T[i] = new Texture(filenames[i][0]);
         }
     }
     private void loadSkinPaths(){
-        filenames = new String[num_skins];
-        filenames[0] = "ogball_icon.png";
-        filenames[1] = "badlogic.jpg";
-        filenames[2] = "shop_icon.png";
-        filenames[3] = "back_icon_1.png";
-        filenames[4] = "testwall.jpg";
+        filenames = new String[num_skins][10];
+        for(int i = 0;i<num_basic_skins;i++){
+            filenames[i][0] = "skins/Skin"+i+".png";
+        }
     }
     private void loadSkinUnlocked(){
         unlocked = new boolean[num_skins];
@@ -52,6 +51,18 @@ public class SkinManager {
         for(int i=1;i < num_skins;i++){
             unlocked[i]=this.data.getBoolean("skin_"+i,false);
         }
+    }
+
+    public void deleteSkinProgress(){
+        for(int i = 0; i<num_skins;i++){
+            this.data.putBoolean("skin_"+i,false);
+        }
+        this.game.cash = 0;
+        this.data.putInteger("cash",0);
+        this.data.flush();
+        loadSkinUnlocked();
+        changeBallSkin(0);
+
     }
     public BallSkin getBallSkin(){
         return this.ballSkin;
@@ -70,7 +81,7 @@ public class SkinManager {
 
     public void changeBallSkin(int i){
         this.current_skin = i;
-        this.ballSkin = new BasicBallSkin(ballSkin_T[i]);
+        this.ballSkin = new BasicBallSkin(filenames[i][0]);
         this.data.putInteger("selected_skin",i);
         this.data.flush();
     }

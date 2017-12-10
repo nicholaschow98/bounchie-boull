@@ -10,6 +10,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public interface BallSkin{
     public Texture getTexture();
 
+    public String getDescription();
+
+    public int getID();
+
+    public String getName();
+
     public void onCollide(Ball ball);
 
     public void onDeath(Ball ball);
