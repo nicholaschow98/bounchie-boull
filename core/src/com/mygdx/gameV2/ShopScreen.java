@@ -25,7 +25,7 @@ public class ShopScreen implements Screen {
     Button backButton;
     Button buyButton;
     Button buttons[] = new Button[num_of_Buttons];
-    boolean bought;
+    int bought;
 
     public ShopScreen(final B_Ball game){
         this.game = game;
@@ -34,7 +34,7 @@ public class ShopScreen implements Screen {
         font.setColor(Color.BLACK);
         font.getData().setScale(fontScale,fontScale);
 
-        this.bought = false;
+        this.bought =-1;
 
         camera = new OrthographicCamera(game.cameraWidth, game.cameraHeight);
         camera.setToOrtho(false, game.cameraWidth,game.cameraHeight);
@@ -73,7 +73,7 @@ public class ShopScreen implements Screen {
         font.draw(game.batch,"Cash: "+game.cash,500,900);
         font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
 
-        if(this.bought){
+        if(this.bought!=-1){
             font.draw(game.batch, "Ye got skin number "+game.skin_Manager.current_skin+".", 100, 350);
         }
         game.batch.end();
@@ -94,8 +94,8 @@ public class ShopScreen implements Screen {
                             this.game.cash-=10;
                             this.game.data.putInteger("cash",this.game.cash);
                             this.game.data.flush();
-                            this.game.skin_Manager.unlockSkin(rand.nextInt(game.skin_Manager.num_skins));
-                            this.bought = true;
+                            this.bought = rand.nextInt(game.skin_Manager.num_skins);
+                            this.game.skin_Manager.unlockSkin(this.bought);
                         }
                 }
             }

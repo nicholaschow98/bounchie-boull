@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 /**
@@ -40,7 +41,7 @@ public class SkinsScreen implements Screen {
     }
 
     private void initializeButtons(){
-        backButton= new Button(game.cameraWidth/8,game.cameraHeight*7/8, game.T_backButton);
+        backButton= new styleButton(1.5f,"BACK",game.cameraWidth*1/10, game.cameraHeight*7/8,game.skin_Manager.button_file_names);
         buttons[0] = backButton;
     }
     private void initializeSkinButtons(){
@@ -77,13 +78,14 @@ public class SkinsScreen implements Screen {
         }
         for(int i = 0;i<game.skin_Manager.num_skins;i++){
             if(game.skin_Manager.unlocked[i]){
+                if(game.skin_Manager.current_skin==i){
+                    game.batch.draw(new Texture("dbox.png"),skinButtons[i].x-30,skinButtons[i].y-30,skinButtons[i].width+60,skinButtons[i].height+60);
+                }
                 skinButtons[i].drawSelf(this.game.batch);
             }
 
         }
-
-        font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
-        font.draw(game.batch, "THIS IS THE SKIN MENU BITCHO.\n SKINS AND SHIT BOI", 100, 700);
+        font.draw(game.batch, "Select your skin", 300, game.cameraHeight*8.6f/10);
         game.batch.end();
         //end rendering
     }
