@@ -28,7 +28,7 @@ public class GM2 implements GameMode {
 
     protected int wallWidth = 65;
     protected float wall_yvel = -13;
-    protected float wall_xvel= 0;
+    protected float wall_xvel= 1;
 
     protected float jumpspeed = 20;
     protected float gravity  = 1.3f;
@@ -97,9 +97,11 @@ public class GM2 implements GameMode {
     public void touch_Update(){
         if(!started&&Gdx.input.justTouched()){
             this.start();
+
         }
         if(!lose){
             Ball.yvel=jumpspeed;
+            //wall_xvel=wall_xvel*-1;
         }
     }
     public void update(){
@@ -191,6 +193,7 @@ public class GM2 implements GameMode {
         }
         for(Wall wall:Walls){
             wall.yvel+=wall_yvel/130;
+            wall.xvel*=-1;
         }
     }
     public boolean getLose(){
