@@ -43,16 +43,17 @@ public class Staggered_GameMode implements GameMode {
     protected float Ball_init_vel = 6.8f;
 
     protected Texture wall_texture;
-    protected Texture special_texture;
-    protected Texture guard_texture;
-    //FOR TESTING ONLY
     protected Texture ball_texture;
+
+    /*protected Texture special_texture;
+    protected Texture guard_texture;
     protected Texture one;
     protected Texture two;
     protected Texture three;
     protected Texture four;
     protected Texture five;
     protected Texture six;
+    */
     //FOR TESTING ONLY
 
     Preferences data;
@@ -62,6 +63,7 @@ public class Staggered_GameMode implements GameMode {
         this.ball_texture = game.T_ogBall;
         this.wall_texture = game.T_wallTexture;
         //THIS IS FOR TESTING ONLY
+        /*
         this.special_texture = game.T_shopIcon;
         this.guard_texture = game.T_backButton;
         this.one = game.T_1;
@@ -70,6 +72,7 @@ public class Staggered_GameMode implements GameMode {
         this.four = game.T_4;
         this.five = game.T_5;
         this.six = game.T_6;
+        */
         //FOR TESTING ONLY END
         this.Walls = new Wall[num_walls];
         this.SpecialWalls = new Wall[num_special];
@@ -94,16 +97,16 @@ public class Staggered_GameMode implements GameMode {
         return this.started;
     }
     protected void init_GenerateWalls() {
-        Walls[0] = new Wall(game.cameraWidth * 1 / 8, 1100, wallWidth, 500, 0, wall_yvel, one);
+        Walls[0] = new Wall(game.cameraWidth * 1 / 8, 1100, wallWidth, 500, 0, wall_yvel, wall_texture);
         AllWalls[0] = Walls[0];
-        Walls[1] = new Wall(game.cameraWidth * 7 / 8, 400, wallWidth, 650, 0, wall_yvel, two);
+        Walls[1] = new Wall(game.cameraWidth * 7 / 8, 400, wallWidth, 650, 0, wall_yvel, wall_texture);
         AllWalls[1] = Walls[1];
         for (int i = 2; i < num_walls; i++) {
             if (i % 2 == 0) {
-                Walls[i] = new Wall(generate_staggered_X(i), generate_left_Wall_Y(i), wallWidth, generate_Wall_Height(0), 0, wall_yvel, three);
+                Walls[i] = new Wall(generate_staggered_X(i), generate_left_Wall_Y(i), wallWidth, generate_Wall_Height(0), 0, wall_yvel, wall_texture);
                 AllWalls[i] = Walls[i];
             } else {
-                Walls[i] = new Wall(generate_staggered_X(i), generate_right_Wall_Y(i), wallWidth, generate_Wall_Height(0), 0, wall_yvel, four);
+                Walls[i] = new Wall(generate_staggered_X(i), generate_right_Wall_Y(i), wallWidth, generate_Wall_Height(0), 0, wall_yvel, wall_texture);
                 AllWalls[i] = Walls[i];
             }
         /*
@@ -117,12 +120,12 @@ public class Staggered_GameMode implements GameMode {
         }
             int place = 6;
             for (int i = 0; i < num_special; i++) {
-                SpecialWalls[i] = new Wall(0, 0, wallWidth, 0, 0, wall_yvel, special_texture);
+                SpecialWalls[i] = new Wall(0, 0, wallWidth, 0, 0, wall_yvel, wall_texture);
                 AllWalls[place] = SpecialWalls[i];
                 place++;
             }
             for (int i = 0; i < num_guard; i++) {
-                GuardWalls[i] = new Wall(0, 0, wallWidth, 0, 0, wall_yvel, guard_texture);
+                GuardWalls[i] = new Wall(0, 0, wallWidth, 0, 0, wall_yvel, wall_texture);
                 AllWalls[place] = GuardWalls[i];
                 place++;
             }
