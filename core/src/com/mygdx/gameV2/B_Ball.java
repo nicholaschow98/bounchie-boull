@@ -75,6 +75,13 @@ public class B_Ball extends Game {
 	public void dispose () {
 
 	}
+	Texture T_1;
+	Texture T_2;
+	Texture T_3;
+	Texture T_4;
+	Texture T_5;
+	Texture T_6;
+
 
 	private void initializeTextures(){
 		this.T_wallTexture = new Texture("testwall.jpg");
@@ -82,5 +89,11 @@ public class B_Ball extends Game {
 		this.T_ogBall = new Texture("ogball_icon.png");
 		this.T_shopIcon = new Texture("shop_icon.png");
 		this.T_skinIcon = new Texture("skin_icon.png");
+		this.T_1 = new Texture ("1.png");
+		this.T_2 = new Texture ("2.png");
+		this.T_3 = new Texture ("3.png");
+		this.T_4 = new Texture ("4.png");
+		this.T_5 = new Texture ("5.png");
+		this.T_6 = new Texture ("6.png");
 	}
 }
