@@ -43,6 +43,10 @@ public class GameScreen implements Screen {
             gamemode = new Staggered_GameMode(this.game);
             this.highscore = this.game.data.getInteger("Staggered_Highscore", 0);
         }
+        else if(mode.equals("GM2")){
+            gamemode = new GM2(this.game);
+            this.highscore = this.game.data.getInteger("GM2_Highscore", 0);
+        }
     }
     public void pause(){
 
