@@ -22,7 +22,7 @@ public class B_Ball extends Game {
 	SpriteBatch batch;
 	Texture img;
 
-	Texture T_backButton, T_shopIcon, T_ogBall, T_skinIcon, MenuBall, T_wallTexture, T_wallTexture2, T_wallTexture3;
+	Texture T_backButton, T_shopIcon, T_ogBall, T_skinIcon, MenuBall, T_wallTexture, T_wallTexture2, T_wallTexture3, T_coin;
 
 	public BitmapFont font;
 	public float fontScale = 1.5f;
@@ -81,5 +81,6 @@ public class B_Ball extends Game {
 		this.T_shopIcon = new Texture("shop_icon.png");
 		this.T_skinIcon = new Texture("skin_icon.png");
 		this.MenuBall = new Texture("menuball.png");
+		this.T_coin = new Texture("coin.png");
 	}
 }

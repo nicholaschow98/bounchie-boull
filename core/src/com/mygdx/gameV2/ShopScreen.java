@@ -27,7 +27,7 @@ public class ShopScreen implements Screen {
     Button buyButton;
     Button buttons[] = new Button[num_of_Buttons];
     int bought;
-    final int price = 5;
+    final int price = 100;
 
     public ShopScreen(final B_Ball game){
         this.game = game;
