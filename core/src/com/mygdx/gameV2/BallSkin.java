@@ -25,4 +25,6 @@ public interface BallSkin{
     public void onTouch(Ball ball);
 
     public void skinRender(SpriteBatch batch);
+
+    public void playSound();
 }

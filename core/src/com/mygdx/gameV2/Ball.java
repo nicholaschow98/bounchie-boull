@@ -1,5 +1,6 @@
 package com.mygdx.gameV2;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -17,4 +18,12 @@ public class Ball extends Game_Object {
         super.updatePos();
         //this.yvel-=gravity;
     }//trying to  fix
+
+    public void onCollide(){
+        if(this.xvel != 0) {
+            skin.playSound();
+        }
+    }
+
+
 }

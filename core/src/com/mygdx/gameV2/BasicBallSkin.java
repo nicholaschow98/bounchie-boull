@@ -1,5 +1,6 @@
 package com.mygdx.gameV2;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -12,8 +13,11 @@ public class BasicBallSkin implements BallSkin {
     private String name;
     private String description;
     private int id;
-    public BasicBallSkin(String filename){
+    private int ide;
+    private Sound[] sounds;
+    public BasicBallSkin(String filename, Sound[] goodsound){
         this.ballTexture = new Texture(filename);
+        this.sounds = goodsound;
     }
     public Texture getTexture(){
         return this.ballTexture;
@@ -32,7 +36,14 @@ public class BasicBallSkin implements BallSkin {
     }
 
     public void onCollide(Ball ball){
-        //nothin
+
+    }
+
+    public void playSound(){
+        sounds[ide].play();
+        if (ide == 6){
+            ide = 0;
+        }
     }
 
     public void onDeath(Ball ball){

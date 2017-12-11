@@ -31,6 +31,8 @@ public class Game_Object extends Renderable{
         this.x+=this.xvel;
         this.y+=this.yvel;
     }
+
+    /*
     public void checkForCollison(Game_Object [] game_objects, boolean [] collided){
         if(active == false){
             return;
@@ -44,6 +46,8 @@ public class Game_Object extends Renderable{
             }
         }
     }
+    */
+
 
     public void checkForDirectionalCollision(Game_Object [] game_objects, boolean [] collided, char [] direction) {
 
@@ -65,6 +69,7 @@ public class Game_Object extends Renderable{
 
             if (abs(dx) <= w && abs(dy) <= h) {
                 collided[i]=true;
+                this.onCollide();
                 float wy = w * dy;
                 float hx = h * dx;
 
@@ -84,6 +89,11 @@ public class Game_Object extends Renderable{
             }
         }
     }
+
+    public void onCollide(){
+        //noething
+    };
+
     private boolean collision(Game_Object go){
         if (go.x < this.x + this.width &&
                 go.x + go.width > this.x &&

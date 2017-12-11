@@ -95,7 +95,7 @@ public class ShopScreen implements Screen {
                     case 1:
                         if(this.game.cash>=price&&Gdx.input.justTouched()){
                             rand = new Random();
-                            this.game.cash-=price;
+                            this.game.cash -= price;
                             this.game.data.putInteger("cash",this.game.cash);
                             this.game.data.flush();
                             this.bought = rand.nextInt(game.skin_Manager.num_skins);

@@ -1,5 +1,6 @@
 package com.mygdx.gameV2;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -36,44 +37,21 @@ public class Staggered_GameMode implements GameMode {
     //private float leftx, rightx;
 
     protected int wallWidth = 30;
-    protected float wall_yvel = -10;
+    protected float wall_yvel = -8;
 
-    protected float jumpspeed = 25;
+    protected float jumpspeed = 23;
     protected float gravity  = 1.7f;
-    protected float Ball_init_vel = 6.8f;
+    protected float Ball_init_vel = 5.9f;
 
     protected Texture wall_texture;
     protected Texture ball_texture;
 
-    /*protected Texture special_texture;
-    protected Texture guard_texture;
-    protected Texture one;
-    protected Texture two;
-    protected Texture three;
-    protected Texture four;
-    protected Texture five;
-    protected Texture six;
-    */
-    //FOR TESTING ONLY
-
-    Preferences data;
+    public String gamemodeName = "Staggered";
 
     public Staggered_GameMode(B_Ball game){
         this.game = game;
         this.ball_texture = game.T_ogBall;
         this.wall_texture = game.T_wallTexture;
-        //THIS IS FOR TESTING ONLY
-        /*
-        this.special_texture = game.T_shopIcon;
-        this.guard_texture = game.T_backButton;
-        this.one = game.T_1;
-        this.two = game.T_2;
-        this.three = game.T_3;
-        this.four = game.T_4;
-        this.five = game.T_5;
-        this.six = game.T_6;
-        */
-        //FOR TESTING ONLY END
         this.Walls = new Wall[num_walls];
         this.SpecialWalls = new Wall[num_special];
         this.GuardWalls = new Wall[num_guard];
@@ -93,9 +71,7 @@ public class Staggered_GameMode implements GameMode {
     public Ball get_Ball(){
         return this.Ball;
     }
-    public boolean getStarted(){
-        return this.started;
-    }
+
     protected void init_GenerateWalls() {
         Walls[0] = new Wall(game.cameraWidth * 1 / 8, 1100, wallWidth, 500, 0, wall_yvel, wall_texture);
         AllWalls[0] = Walls[0];
@@ -155,41 +131,46 @@ public class Staggered_GameMode implements GameMode {
         if(last_wall == -2){
             last_wall = num_walls-2;
         }
-        return rand.nextInt(600) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
+        return rand.nextInt(500) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
     }
     protected float generate_right_Wall_Y(int wall) {
         int last_wall = wall - 2;
         if (last_wall == -1) {
             last_wall = num_walls - 1;
         }
-        return rand.nextInt(600) + Walls[last_wall].y + Walls[last_wall].height + Ball.height + 10;
+        return rand.nextInt(500) + Walls[last_wall].y + Walls[last_wall].height + Ball.height + 10;
     }
 
     public void touch_Update(){
-        if(!started){
+        if(!started&& Gdx.input.justTouched()){
             this.start();
         }
         if(!lose){
             Ball.yvel=jumpspeed;
         }
-        if(lose){
-            start();
-            lose=false;
-        }
     }
 
     public int next(int index, int front){
-        int no = index - front;
-        if (no >= 0){
-            return no;
+        if (front > 0) {
+            int no = index - front;
+            if (no >= 0) {
+                return no;
+            } else {
+                int yea = num_walls + index - front;
+                return yea;
+            }
         }
         else{
-            int yea = num_walls + index - front;
-            int yes = index - (num_walls - front) ;
-            return yea;
+            int no = index - front;
+            if (no <= num_walls) {
+                return no;
+            } else {
+                int yes = index - (num_walls + front);
+                return yes;
+            }
         }
     }
-
+    int loss = 0;
     public void update() {
         if (started) {
             //WALL LOGIC
@@ -210,133 +191,157 @@ public class Staggered_GameMode implements GameMode {
                     if (GuardWalls[i].y + GuardWalls[i].height < -10) {
                         float difference = 0;
                         float dist = 0;
-                        difference = Walls[i].x - Walls[next(i, 2)].x ;
+                        difference = Walls[i].x - Walls[next(i, 2)].x;
                         dist = Walls[i].y - Walls[next(i, 2)].y - Walls[next(i, 2)].height;
-                        if(i%2 == 0){
-                            if (Walls[i].x > Walls[next(i,2)].x && Math.abs(difference) >= game.cameraWidth*1/6 && Walls[i].y > 800 && dist > 100){
-                                if (Walls[i].x > game.cameraWidth * 1 / 4 && Walls[i].x <= game.cameraWidth * 1/3){
-                                    GuardWalls[i].x = wallWidth/2 + 5;
-                                    GuardWalls[i].height = Walls[i].height -50 + rand.nextInt(100);
+                        if (i % 2 == 0) {
+                            if (Walls[i].x > Walls[next(i, 2)].x && Math.abs(difference) >= game.cameraWidth * 1 / 6 && Walls[i].y > 800 && dist > 100) {
+                                if (Walls[i].x > game.cameraWidth * 1 / 4 && Walls[i].x <= game.cameraWidth * 1 / 3) {
+                                    GuardWalls[i].x = wallWidth / 2 + 5;
+                                    GuardWalls[i].height = Walls[i].height + rand.nextInt(100) + 200;
                                     GuardWalls[i].y = Walls[i].y - rand.nextInt(150);
                                 }
                             }
-                        }
-                        else if(i%2 == 1){
-                            if (Walls[i].x < Walls[next(i,2)].x && Math.abs(difference) >= game.cameraWidth * 1/6 && Walls[i].y > 800 && dist > 100){
-                                if(Walls[i].x < game.cameraWidth * 3/4 && Walls[i].x > game.cameraWidth*2/3){
+                        } else if (i % 2 == 1) {
+                            if (Walls[i].x < Walls[next(i, 2)].x && Math.abs(difference) >= game.cameraWidth * 1 / 6 && Walls[i].y > 800 && dist > 100) {
+                                if (Walls[i].x < game.cameraWidth * 3 / 4 && Walls[i].x > game.cameraWidth * 2 / 3) {
                                     GuardWalls[i].x = game.cameraWidth - wallWidth / 2 - 5;
-                                    GuardWalls[i].height = Walls[i].height + 100;
+                                    GuardWalls[i].height = Walls[i].height + rand.nextInt(100) + 200;
                                     GuardWalls[i].y = Walls[i].y - rand.nextInt(100);
                                 }
                             }
                         }
                     }
                 }
-                for (int i = 1; i < num_walls; i += 2) {
+                for (int i = 0; i < num_walls; i += 2) {
                     SpecialWalls[i].updatePos();
                     if (SpecialWalls[i].y + SpecialWalls[i].height < -10) {
-                        float distance = Walls[i].x - Walls[next(i, 1)].x;
-                        float dist = Walls[next(i, 1)].y - Walls[i].x - Walls[i].height;
-                        if (Math.abs(distance) > game.cameraWidth * 5 / 12 && Math.abs(dist) > 25 && Math.abs(dist) < 350 && Walls[i].y > game.cameraHeight) {
-                            int spacer = rand.nextInt(game.cameraWidth * 1 / 8);
-                            SpecialWalls[i].x = Walls[next(i,1)].x + spacer + rand.nextInt(Math.round(distance - spacer));
-                            if(Walls[next(i,1)].y < Walls[i].y + Walls[i].height && Walls[next(i, 1)].y > game.cameraHeight) {
-                                SpecialWalls[i].y = Walls[next(i,1)].y + Walls[next(i,1)].height * 1 / 2 + rand.nextInt(200);
-                                SpecialWalls[i].height = rand.nextInt(200) + 250;
+                        int proper = 1;
+                        float distance = 0;
+                        float dist = 0;
+                        boolean yeah = true;
+                        boolean above = true;
+                        boolean go = false;
+                        while (yeah) {
+                            distance = Walls[next(i, -proper)].x - Walls[i].x;
+                            if (Walls[next(i, -proper)].y < Walls[i].y) {
+                                dist = Walls[i].y - Walls[next(i, -proper)].y - Walls[next(i, -proper)].height;
+                                above = false;
+                            } else {
+                                dist = Walls[next(i, -proper)].y - Walls[i].y - Walls[i].height;
+                                above = true;
                             }
-                            else{
-                                SpecialWalls[i].y = Walls[i].y + Walls[i].height/2 + rand.nextInt(200);
-                                SpecialWalls[i].height = rand.nextInt(300) + 250;
+                            if (Math.abs(distance) > game.cameraWidth * 5 / 12 && Math.abs(dist) > 25 && Math.abs(dist) < 350 || proper > num_walls) {
+                                yeah = false;
+                                go = true;
+                            } else {
+                                proper += 2;
                             }
                         }
-                        //else if()
+                        float spacer = rand.nextInt(Math.round(distance * 1 / 8)) + distance * 1 / 8;
+                        if (above && go) {
+                            if (Walls[i].y > game.cameraHeight && Walls[next(i, -proper)].y > game.cameraHeight + dist) {
+                                SpecialWalls[i].x = Walls[i].x + spacer + rand.nextInt(Math.round(distance - spacer * 2));
+                                SpecialWalls[i].y = Walls[i].y + Walls[i].height / 2 + rand.nextInt(Math.round(Math.abs(dist)));
+                                SpecialWalls[i].height = rand.nextInt(200) + 250;
+                            }
+                        } else if (go) {
+                            if (Walls[next(i, -proper)].y > game.cameraHeight && Walls[next(i, -proper)].y > game.cameraHeight + dist) {
+                                SpecialWalls[i].x = Walls[i].x + spacer + rand.nextInt(Math.round(distance - spacer * 2));
+                                SpecialWalls[i].y = Walls[next(i, -proper)].y + Walls[next(i, -proper)].height / 2 + rand.nextInt(Math.round(Math.abs(dist)));
+                                SpecialWalls[i].height = rand.nextInt(200) + 250;
+                            }
+                        }
                     }
                 }
-
-
-
                 //WALL LOGIC END
 
                 //BALL LOGIC
-                this.Ball.updatePos();
-                boolean[] collided = new boolean[num_all];
-                char[] dir = new char[num_all];//up down left right -> u d l r
-                Ball.checkForDirectionalCollision(AllWalls, collided, dir);
-
-                for (int i = 0; i < num_all; i++) {
-                    if (collided[i]) {
-                        if (dir[i] == 'u') {//ball collided with top of wall
-                            Ball.yvel = (float) 0.5 * abs(Ball.yvel);
-                            Ball.y = AllWalls[i].y + AllWalls[i].height;
-                        } else if (dir[i] == 'd') {//ball collided with bottom of wall
-                            Ball.yvel = -1 * abs(Ball.yvel);
-                            Ball.y = AllWalls[i].y - Ball.height;
-                        } else if (dir[i] == 'l') {
-                            if (!lose) {
-                                score++;
-                            }
-                            Ball.xvel = -1 * abs(Ball.xvel);
-                            Ball.x = AllWalls[i].x - Ball.width;
-                        } else if (dir[i] == 'r') {
-                            if (!lose) {
-                                score++;
-                                //incDiff();
-                            }
-                            Ball.xvel = abs(Ball.xvel);
-                            Ball.x = AllWalls[i].x + AllWalls[i].width;
-                        }
-                    }
-                }
-                if (Ball.x + Ball.width >= game.cameraWidth) {
-                    Ball.x = game.cameraWidth - Ball.width;
-                    Ball.xvel *= -0.5;
-                    lose();
-                } else if (Ball.x < 0) {
-                    Ball.x = 0;
-                    Ball.xvel *= -0.5;
-                    lose();
-                }
-                if (Ball.y < 0) {
-                    lose();
-                    Ball.y = 0;
-                    Ball.yvel *= -0.5;
-                    Ball.xvel *= 0.9;
-                    if (Ball.yvel > -0.5 && Ball.yvel < 0) {
-                        Ball.yvel = 0;
-                    }
-                }
-                Ball.yvel -= gravity;
-                //BALL LOGIC END
             }
+            this.Ball.updatePos();
+            boolean[] collided = new boolean[num_all];
+            char[] dir = new char[num_all];//up down left right -> u d l r
+            Ball.checkForDirectionalCollision(AllWalls, collided, dir);
+
+            for (int i = 0; i < num_all; i++) {
+                if (collided[i]) {
+                    if (dir[i] == 'u') {//ball collided with top of wall
+                        Ball.yvel = (float) 0.5 * abs(Ball.yvel);
+                        Ball.y = AllWalls[i].y + AllWalls[i].height;
+                    } else if (dir[i] == 'd') {//ball collided with bottom of wall
+                        Ball.yvel = -1 * abs(Ball.yvel);
+                        Ball.y = AllWalls[i].y - Ball.height;
+                    } else if (dir[i] == 'l') {
+                        if (!lose) {
+                            score++;
+                            this.game.cash++;
+                        }
+                        Ball.xvel = -1 * abs(Ball.xvel);
+                        Ball.x = AllWalls[i].x - Ball.width;
+                    } else if (dir[i] == 'r') {
+                        if (!lose) {
+                            score++;
+                            this.game.cash++;
+                        }
+                        Ball.xvel = abs(Ball.xvel);
+                        Ball.x = AllWalls[i].x + AllWalls[i].width;
+                    }
+                }
+            }
+            if (Ball.x + Ball.width >= game.cameraWidth) {
+                Ball.x = game.cameraWidth - Ball.width;
+                Ball.xvel *= -0.5;
+                lose();
+            } else if (Ball.x < 0) {
+                loss += 1;
+                Ball.x = 0;
+                Ball.xvel *= -0.5;
+                lose();
+            }
+            if (Ball.y < 0) {
+                loss += 1;
+                lose();
+                Ball.y = 0;
+                Ball.yvel *= -0.5;
+                Ball.xvel *= 0.9;
+                if (Ball.yvel > -0.5 && Ball.yvel < 0) {
+                    Ball.yvel = 0;
+                }
+            }
+            Ball.yvel -= gravity;
+            //BALL LOGIC END
         }
     }
+
     public void lose(){
+        if(this.score > this.game.data.getInteger(gamemodeName+"_Highscore",0)){
+            this.game.data.putInteger(gamemodeName+"_Highscore",this.score);
+        }
+        this.game.data.putInteger("cash",this.game.cash);
+        this.game.data.flush();
         lose = true;
-    }
-    private void incDiff(){
-        if(Ball.xvel>0){
-            Ball.xvel+=Ball_init_vel/300;
-        }else{
-            Ball.xvel-=Ball_init_vel/100;
-        }
-        for(Wall wall:Walls){
-            wall.yvel+=wall_yvel/60;
+        if(loss < 2){
+            game.skin_Manager.getSound(6).play();
         }
     }
+
     public boolean getLose(){
         return this.lose;
     }
+
     public void start(){
         this.started = true;
         this.score = 0;
         this.Ball.x = game.cameraWidth/2+80;
         this.Ball.y = game.cameraHeight/8+80;
+
         if(lose){
             this.init_GenerateWalls();
         }
         this.lose = false;
         Ball.xvel = Ball_init_vel;
-
+    }
+    public boolean getStarted(){
+        return this.started;
     }
 }
 

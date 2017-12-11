@@ -98,6 +98,7 @@ public class Classic_GameMode implements GameMode {
             Ball.yvel=jumpspeed;
         }
     }
+    int loss = 0;
     public void update(){
         if(started){
             //WALL LOGIC
@@ -122,8 +123,10 @@ public class Classic_GameMode implements GameMode {
             char [] dir = new char[num_walls];//up down left right -> u d l r
             Ball.checkForDirectionalCollision(Walls,collided, dir);
 
+
             for(int i = 0;i<num_walls;i++){
                 if(collided[i]){
+
                     if(dir[i]=='u'){//ball collided with top of wall
                         Ball.yvel=(float)0.5*abs(Ball.yvel);
                         Ball.y = Walls[i].y+Walls[i].height;
@@ -154,11 +157,13 @@ public class Classic_GameMode implements GameMode {
                 Ball.xvel*=-0.5;
                 lose();
             }else if(Ball.x<0){
+                loss += 1;
                 Ball.x = 0;
                 Ball.xvel*=-0.5;
                 lose();
             }
             if(Ball.y<0){
+                loss += 1;
                 lose();
                 Ball.y = 0;
                 Ball.yvel*=-0.5;
@@ -171,6 +176,9 @@ public class Classic_GameMode implements GameMode {
             //BALL LOGIC END
         }
     }
+
+
+
     public void lose(){
         if(this.score > this.game.data.getInteger(gamemodeName+"_Highscore",0)){
             this.game.data.putInteger(gamemodeName+"_Highscore",this.score);
@@ -178,6 +186,9 @@ public class Classic_GameMode implements GameMode {
         this.game.data.putInteger("cash",this.game.cash);
         this.game.data.flush();
         lose = true;
+        if(loss < 2){
+            game.skin_Manager.getSound(6).play();
+        }
     }
     private void incDiff(){
         if(Ball.xvel>0){

@@ -31,4 +31,8 @@ public abstract class Renderable {
     public void dispose(){
         //this.texture.dispose();
     }
+
+    public void onCollide(){
+        //nothing
+    }
 }
