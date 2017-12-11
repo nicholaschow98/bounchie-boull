@@ -177,8 +177,6 @@ public class Classic_GameMode implements GameMode {
         }
     }
 
-
-
     public void lose(){
         if(this.score > this.game.data.getInteger(gamemodeName+"_Highscore",0)){
             this.game.data.putInteger(gamemodeName+"_Highscore",this.score);

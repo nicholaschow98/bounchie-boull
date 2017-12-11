@@ -9,8 +9,8 @@ import com.badlogic.gdx.audio.Sound;
  */
 
 public class SkinManager{
-    public int num_skins = 23;
-    public int num_basic_skins = 23;
+    public int num_skins = 24;
+    public int num_basic_skins = 24;
     public int current_skin = 0;
 
     String [][] filenames;

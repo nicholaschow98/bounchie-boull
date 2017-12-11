@@ -21,7 +21,7 @@ public class MainScreen implements Screen {
     BitmapFont font;
 
     final int num_of_Buttons = 3;
-    Button gameButton, shopButton, skinButton;
+    Button gameButton, shopButton, skinButton, aboutButton;
     Button buttons[] = new Button[num_of_Buttons];
 
     Ball Ball;
@@ -38,12 +38,14 @@ public class MainScreen implements Screen {
     }
 
     private void initializeButtons(){
-        gameButton = new styleButton(2,"PLAY",game.cameraWidth*3/10, game.cameraHeight*6/16,game.skin_Manager.button_file_names);
-        shopButton =  new styleButton(2,"SHOP",game.cameraWidth*3/10, game.cameraHeight*4/16,game.skin_Manager.button_file_names);
-        skinButton =  new styleButton(2,"SKINS MENU",game.cameraWidth*3/10, game.cameraHeight*2/16,game.skin_Manager.button_file_names);
-        buttons[0] = gameButton;
+        gameButton = new styleButton(2,"PLAY",game.cameraWidth*2/10, game.cameraHeight*8/16,game.skin_Manager.button_file_names);
+        shopButton =  new styleButton(2,"SHOP",game.cameraWidth*2/10, game.cameraHeight*6/16,game.skin_Manager.button_file_names);
+        skinButton =  new styleButton(2,"SKINS",game.cameraWidth*2/10, game.cameraHeight*4/16,game.skin_Manager.button_file_names);
+        //aboutButton = new styleButton(2, "About", game.cameraWidth* 2/10, game. cameraHeight * 2/16, game.skin_Manager.button_file_names)
+;        buttons[0] = gameButton;
         buttons[1] = shopButton;
         buttons[2] = skinButton;
+        //buttons[3] = aboutButton;
     }
 
     public void pause(){
@@ -67,8 +69,8 @@ public class MainScreen implements Screen {
         }
 
         Ball.drawSelf(this.game.batch);
-        font.draw(game.batch,"You got "+game.cash+" cashes",200,900);
-        font.draw(game.batch, game.touchPos.x+" x "+game.touchPos.y, 50, 100);
+        //font.draw(game.batch,"You got "+game.cash+" cashes",200,900);
+        //font.draw(game.batch, game.touchPos.x+" x "+game.touchPos.y, 50, 100);
         font.getData().setScale(1.5f,1.5f);
         font.getData().setScale(game.fontScale,game.fontScale);
         game.batch.end();
@@ -88,15 +90,15 @@ public class MainScreen implements Screen {
             Ball.y = game.cameraHeight/2-75;
             Ball.yvel*=-0.5;
             Ball.xvel*=0.9;
-            if(Ball.yvel>-0.5&&Ball.yvel<0){
+            if(Ball.yvel > -0.5 && Ball.yvel < 0){
                 Ball.yvel = 0;
             }
         }
-        if(Ball.y>10000){
+        if(Ball.y > game.cameraHeight + 200){
             Ball.y = 0;
             Ball.yvel = 0;
         }
-        Ball.yvel-=1.85f;
+        Ball.yvel -= 1.85f;
     }
 
     public void inputTouched(){
@@ -121,6 +123,10 @@ public class MainScreen implements Screen {
                         game.setScreen(new SkinsScreen(this.game));
                         dispose();
                         break;
+                    //case 3:
+                    //    game.setScreen(new AboutScreen(this.game));
+                    //    dispose();
+                    //    break;
                 }
             }
         }
