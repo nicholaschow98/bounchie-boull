@@ -47,11 +47,11 @@ public class GameSelectionScreen implements Screen{
 
     }
     private void initializeButtons(){
-        ClassicMode = new styleButton(2.5f,"CLASSIC",game.cameraWidth*1/6, game.cameraHeight*4/8,game.skin_Manager.button_file_names);
+        ClassicMode = new styleButton(2.5f,"CLASSIC",game.cameraWidth*1/10, game.cameraHeight*8/16,game.skin_Manager.button_file_names);
 
-        StaggeredMode = new styleButton(2.5f,"STAGGERED",game.cameraWidth*1/6, game.cameraHeight*3/8,game.skin_Manager.button_file_names);
+        StaggeredMode = new styleButton(2.5f,"FREESTYLE",game.cameraWidth*1/10, game.cameraHeight*5/16,game.skin_Manager.button_file_names);
 
-        GM2Mode = new styleButton(2.5f,"NUMBA 2",game.cameraWidth*1/6, game.cameraHeight*2/8,game.skin_Manager.button_file_names);
+        GM2Mode = new styleButton(2.5f,"WAVY",game.cameraWidth*1/10, game.cameraHeight*2/16,game.skin_Manager.button_file_names);
         //TrollMode = new Button (WHATEVER)
         backButton = buttons[0] = new styleButton(1.5f,"BACK",game.cameraWidth*1/10, game.cameraHeight*7/8,game.skin_Manager.button_file_names);
         ripButton  = new styleButton(0.5f,"rip",game.cameraWidth-100, game.cameraHeight*9/10,game.skin_Manager.button_file_names);
@@ -70,41 +70,7 @@ public class GameSelectionScreen implements Screen{
         if(Gdx.input.isTouched()){
             inputTouched();
         }
-        /*gamemode.update();
-        game.batch.begin();
-        for(Wall wall : gamemode.get_Walls()){
-            wall.drawSelf(this.game);
-        }*/
 
-        //font.getData().setScale(7);
-        //font.setColor(Color.BLACK);
-
-        /*gamemode.get_Ball().drawSelf(this.game);
-        if(gamemode.getLose()==true){
-            game.batch.draw(game.img,game.cameraWidth/8,game.cameraHeight*2/3,game.cameraWidth*6/8,game.cameraHeight/4);
-            backButton.activate();
-            backButton.drawSelf(this.game);
-        }
-        else{
-            backButton.deactivate();
-        }*/
-        /*
-        font.draw(game.batch, ""+gamemode.getScore(), game.cameraWidth/2-font.getSpaceWidth()/2, game.cameraHeight*7/8);//-font.getSpaceWidth()/2
-        game.batch.end();
-
-
-        if(Gdx.input.isTouched()){
-            game.touchPos.set(Gdx.input.getX(), Gdx.input.getY(),0);
-            camera.unproject(game.touchPos);
-
-            if(backButton.checkPressed(game.touchPos)){
-                game.setScreen(new MainScreen(game));
-                this.dispose();
-            }
-            gamemode.touch_Update();
-        }
-        font.getData().setScale(2);
-    }*/
         game.batch.begin();
         for(int i = 0; i < num_buttons; i++){
             buttons[i].drawSelf(this.game.batch);

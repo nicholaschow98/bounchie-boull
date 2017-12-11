@@ -87,7 +87,7 @@ public class SkinsScreen implements Screen {
             }
 
         }
-        font.draw(game.batch, "Select your skin", 300, game.cameraHeight*8.6f/10);
+        font.draw(game.batch, "Select your skin", 330, game.cameraHeight*10/11);
         game.batch.end();
         //end rendering
     }

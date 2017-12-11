@@ -41,6 +41,7 @@ public class BasicBallSkin implements BallSkin {
 
     public void playSound(){
         sounds[ide].play();
+        ide++;
         if (ide == 6){
             ide = 0;
         }

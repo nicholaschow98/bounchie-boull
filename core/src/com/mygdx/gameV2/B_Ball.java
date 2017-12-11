@@ -22,18 +22,13 @@ public class B_Ball extends Game {
 	SpriteBatch batch;
 	Texture img;
 
-	Texture T_backButton;
-	Texture T_shopIcon;
-	Texture T_ogBall;
-	Texture T_skinIcon;
-	Texture T_wallTexture;
+	Texture T_backButton, T_shopIcon, T_ogBall, T_skinIcon, MenuBall, T_wallTexture, T_wallTexture2, T_wallTexture3;
 
 	public BitmapFont font;
 	public float fontScale = 1.5f;
 
 	float screenWidth, screenHeight;
 	public Vector3 touchPos = new Vector3();
-
 
 	int cash;
 
@@ -79,9 +74,12 @@ public class B_Ball extends Game {
 
 	private void initializeTextures(){
 		this.T_wallTexture = new Texture("testwall.jpg");
+		this.T_wallTexture2 = new Texture("testwall2.jpg");
+		this.T_wallTexture3 = new Texture("testwall3.jpg");
 		this.T_backButton = new Texture("back_icon_1.png");
 		this.T_ogBall = new Texture("ogball_icon.png");
 		this.T_shopIcon = new Texture("shop_icon.png");
 		this.T_skinIcon = new Texture("skin_icon.png");
+		this.MenuBall = new Texture("menuball.png");
 	}
 }

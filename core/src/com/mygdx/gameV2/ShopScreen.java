@@ -27,7 +27,7 @@ public class ShopScreen implements Screen {
     Button buyButton;
     Button buttons[] = new Button[num_of_Buttons];
     int bought;
-    final int price = 100;
+    final int price = 5;
 
     public ShopScreen(final B_Ball game){
         this.game = game;
@@ -49,7 +49,7 @@ public class ShopScreen implements Screen {
 
     private void initializeButtons(){
         backButton= buttons[0]= new styleButton(1.5f,"BACK",game.cameraWidth*1/10, game.cameraHeight*7/8,game.skin_Manager.button_file_names);
-        buyButton= buttons[1] = new styleButton(2.5f,"BUY SKIN",100,game.cameraHeight/2, game.skin_Manager.button_file_names);
+        buyButton= buttons[1] = new styleButton(2.5f,"BUY",game.cameraWidth/2 - 120 ,game.cameraHeight/2 + 70, game.skin_Manager.button_file_names);
     }
 
     public void pause(){
@@ -72,12 +72,15 @@ public class ShopScreen implements Screen {
         for(Button button: buttons){
             button.drawSelf(this.game.batch);
         }
-        font.draw(game.batch,"Cash: "+game.cash,500,900);
+        font.draw(game.batch,"Cash:  " + game.cash,game.cameraWidth/2 -70,900);
         //font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
 
         if(this.bought!=-1){
-            font.draw(game.batch, "You got skin number "+this.bought +".", 100, 350);
-            game.batch.draw(new Texture(game.skin_Manager.filenames[this.bought][0]),300,200);
+            font.draw(game.batch, "You got skin number " + this.bought + ".", 150, 350);
+            game.batch.draw(new Texture(game.skin_Manager.filenames[this.bought][0]),game.cameraWidth/2 - 40,200);
+            if(game.skin_Manager.unlocked[this.bought]){
+                font.draw(game.batch, "You already have this skin!", 85, 160);
+            }
         }
         game.batch.end();
         //end rendering

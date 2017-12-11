@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import static java.lang.Math.abs;
 
@@ -20,11 +22,14 @@ public class MainScreen implements Screen {
 
     BitmapFont font;
 
-    final int num_of_Buttons = 3;
+    final int num_of_Buttons = 4;
     Button gameButton, shopButton, skinButton, aboutButton;
     Button buttons[] = new Button[num_of_Buttons];
 
     Ball Ball;
+
+    private Texture deco;
+    private SpriteBatch onebatch;
 
     public MainScreen(final B_Ball game){
         this.game = game;
@@ -33,19 +38,25 @@ public class MainScreen implements Screen {
         camera.setToOrtho(false, game.cameraWidth,game.cameraHeight);
         camera.update();
         initializeButtons();
+        this.create();
         this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,80,80,0,0,game.skin_Manager.getBallSkin());
         this.Ball.xvel=0.001f;
     }
 
     private void initializeButtons(){
-        gameButton = new styleButton(2,"PLAY",game.cameraWidth*2/10, game.cameraHeight*8/16,game.skin_Manager.button_file_names);
-        shopButton =  new styleButton(2,"SHOP",game.cameraWidth*2/10, game.cameraHeight*6/16,game.skin_Manager.button_file_names);
-        skinButton =  new styleButton(2,"SKINS",game.cameraWidth*2/10, game.cameraHeight*4/16,game.skin_Manager.button_file_names);
-        //aboutButton = new styleButton(2, "About", game.cameraWidth* 2/10, game. cameraHeight * 2/16, game.skin_Manager.button_file_names)
-;        buttons[0] = gameButton;
+        gameButton = new styleButton(2,"PLAY",game.cameraWidth*1/20, game.cameraHeight*10/32,game.skin_Manager.button_file_names);
+        shopButton =  new styleButton(2,"SHOP",game.cameraWidth*1/20, game.cameraHeight*7/32,game.skin_Manager.button_file_names);
+        skinButton =  new styleButton(2,"SKINS",game.cameraWidth*1/20, game.cameraHeight*4/32,game.skin_Manager.button_file_names);
+        aboutButton = new styleButton(2, "ABOUT", game.cameraWidth* 1/20, game. cameraHeight * 1/32, game.skin_Manager.button_file_names);
+        buttons[0] = gameButton;
         buttons[1] = shopButton;
         buttons[2] = skinButton;
-        //buttons[3] = aboutButton;
+        buttons[3] = aboutButton;
+    }
+
+    public void create() {
+        deco = game.MenuBall;
+        onebatch = new SpriteBatch();
     }
 
     public void pause(){
@@ -63,16 +74,17 @@ public class MainScreen implements Screen {
             inputTouched();
         }
         //Start all rendering
+        onebatch.begin();
+        onebatch.draw(deco, game.cameraWidth*1/20, game.cameraHeight*18/32, game.cameraWidth*5/4, game.cameraWidth*5/4);
+        onebatch.end();
+
         game.batch.begin();
         for(Button button: buttons){
             button.drawSelf(this.game.batch);
         }
-
-        Ball.drawSelf(this.game.batch);
-        //font.draw(game.batch,"You got "+game.cash+" cashes",200,900);
-        //font.draw(game.batch, game.touchPos.x+" x "+game.touchPos.y, 50, 100);
         font.getData().setScale(1.5f,1.5f);
         font.getData().setScale(game.fontScale,game.fontScale);
+        Ball.drawSelf(this.game.batch);
         game.batch.end();
         //end rendering
     }
@@ -86,15 +98,15 @@ public class MainScreen implements Screen {
             Ball.x = 0;
             Ball.xvel*=-1;
         }
-        if(Ball.y<game.cameraHeight/2-75){
-            Ball.y = game.cameraHeight/2-75;
+        if(Ball.y<game.cameraHeight/2-85){
+            Ball.y = game.cameraHeight/2-85;
             Ball.yvel*=-0.5;
             Ball.xvel*=0.9;
             if(Ball.yvel > -0.5 && Ball.yvel < 0){
                 Ball.yvel = 0;
             }
         }
-        if(Ball.y > game.cameraHeight + 200){
+        if(Ball.y > game.cameraHeight*3){
             Ball.y = 0;
             Ball.yvel = 0;
         }
@@ -123,10 +135,10 @@ public class MainScreen implements Screen {
                         game.setScreen(new SkinsScreen(this.game));
                         dispose();
                         break;
-                    //case 3:
-                    //    game.setScreen(new AboutScreen(this.game));
-                    //    dispose();
-                    //    break;
+                    case 3:
+                        game.setScreen(new AboutScreen(this.game));
+                        dispose();
+                        break;
                 }
             }
         }

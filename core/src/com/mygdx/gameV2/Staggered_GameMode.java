@@ -43,8 +43,7 @@ public class Staggered_GameMode implements GameMode {
     protected float gravity  = 1.7f;
     protected float Ball_init_vel = 5.9f;
 
-    protected Texture wall_texture;
-    protected Texture ball_texture;
+    protected Texture wall_texture, wall_texture2, wall_texture3, ball_texture;
 
     public String gamemodeName = "Staggered";
 
@@ -52,6 +51,8 @@ public class Staggered_GameMode implements GameMode {
         this.game = game;
         this.ball_texture = game.T_ogBall;
         this.wall_texture = game.T_wallTexture;
+        this.wall_texture2 = game.T_wallTexture2;
+        this.wall_texture3 = game.T_wallTexture3;
         this.Walls = new Wall[num_walls];
         this.SpecialWalls = new Wall[num_special];
         this.GuardWalls = new Wall[num_guard];
@@ -85,14 +86,7 @@ public class Staggered_GameMode implements GameMode {
                 Walls[i] = new Wall(generate_staggered_X(i), generate_right_Wall_Y(i), wallWidth, generate_Wall_Height(0), 0, wall_yvel, wall_texture);
                 AllWalls[i] = Walls[i];
             }
-        /*
-        Walls[4] = new Wall(generate_staggered_X(4), generate_right_Wall_Y(4), wallWidth, generate_Wall_Height(0), 0, wall_yvel, five);
-        AllWalls[4] = Walls[4];
-        Walls[5] = new Wall(generate_staggered_X(5), generate_right_Wall_Y(5), wallWidth, generate_Wall_Height(0), 0, wall_yvel, six);
-        AllWalls[5] = Walls[5];
-        */
-            //extra walls if spacing gets a little too wack
-            //}
+
         }
             int place = 6;
             for (int i = 0; i < num_special; i++) {
@@ -189,6 +183,7 @@ public class Staggered_GameMode implements GameMode {
                     }
                     GuardWalls[i].updatePos();
                     if (GuardWalls[i].y + GuardWalls[i].height < -10) {
+                        GuardWalls[i].texture = wall_texture;
                         float difference = 0;
                         float dist = 0;
                         difference = Walls[i].x - Walls[next(i, 2)].x;
@@ -199,6 +194,7 @@ public class Staggered_GameMode implements GameMode {
                                     GuardWalls[i].x = wallWidth / 2 + 5;
                                     GuardWalls[i].height = Walls[i].height + rand.nextInt(100) + 200;
                                     GuardWalls[i].y = Walls[i].y - rand.nextInt(150);
+                                    GuardWalls[i].texture = wall_texture2;
                                 }
                             }
                         } else if (i % 2 == 1) {
@@ -207,6 +203,7 @@ public class Staggered_GameMode implements GameMode {
                                     GuardWalls[i].x = game.cameraWidth - wallWidth / 2 - 5;
                                     GuardWalls[i].height = Walls[i].height + rand.nextInt(100) + 200;
                                     GuardWalls[i].y = Walls[i].y - rand.nextInt(100);
+                                    GuardWalls[i].texture = wall_texture2;
                                 }
                             }
                         }
@@ -215,6 +212,7 @@ public class Staggered_GameMode implements GameMode {
                 for (int i = 0; i < num_walls; i += 2) {
                     SpecialWalls[i].updatePos();
                     if (SpecialWalls[i].y + SpecialWalls[i].height < -10) {
+                        SpecialWalls[i].texture = wall_texture;
                         int proper = 1;
                         float distance = 0;
                         float dist = 0;
@@ -243,12 +241,14 @@ public class Staggered_GameMode implements GameMode {
                                 SpecialWalls[i].x = Walls[i].x + spacer + rand.nextInt(Math.round(distance - spacer * 2));
                                 SpecialWalls[i].y = Walls[i].y + Walls[i].height / 2 + rand.nextInt(Math.round(Math.abs(dist)));
                                 SpecialWalls[i].height = rand.nextInt(200) + 250;
+                                SpecialWalls[i].texture = wall_texture3;
                             }
                         } else if (go) {
                             if (Walls[next(i, -proper)].y > game.cameraHeight && Walls[next(i, -proper)].y > game.cameraHeight + dist) {
                                 SpecialWalls[i].x = Walls[i].x + spacer + rand.nextInt(Math.round(distance - spacer * 2));
                                 SpecialWalls[i].y = Walls[next(i, -proper)].y + Walls[next(i, -proper)].height / 2 + rand.nextInt(Math.round(Math.abs(dist)));
                                 SpecialWalls[i].height = rand.nextInt(200) + 250;
+                                SpecialWalls[i].texture = wall_texture3;
                             }
                         }
                     }
@@ -272,15 +272,35 @@ public class Staggered_GameMode implements GameMode {
                         Ball.y = AllWalls[i].y - Ball.height;
                     } else if (dir[i] == 'l') {
                         if (!lose) {
-                            score++;
-                            this.game.cash++;
+                            if(AllWalls[i].texture == wall_texture2){
+                                score += 3;
+                                this.game.cash += 3;
+                            }
+                            else if(AllWalls[i].texture == wall_texture3){
+                                score += 2;
+                                this.game.cash += 2;
+                            }
+                            else {
+                                score++;
+                                this.game.cash++;
+                            }
                         }
                         Ball.xvel = -1 * abs(Ball.xvel);
                         Ball.x = AllWalls[i].x - Ball.width;
                     } else if (dir[i] == 'r') {
                         if (!lose) {
-                            score++;
-                            this.game.cash++;
+                            if(AllWalls[i].texture == wall_texture2){
+                                score += 3;
+                                this.game.cash += 3;
+                            }
+                            else if(AllWalls[i].texture == wall_texture3){
+                                score += 2;
+                                this.game.cash += 2;
+                            }
+                            else {
+                                score++;
+                                this.game.cash++;
+                            }
                         }
                         Ball.xvel = abs(Ball.xvel);
                         Ball.x = AllWalls[i].x + AllWalls[i].width;

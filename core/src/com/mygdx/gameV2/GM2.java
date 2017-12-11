@@ -16,6 +16,7 @@ public class GM2 implements GameMode {
     B_Ball game;
     //protected int count1=0;
     protected Wall [] Walls;
+    protected Wall [] Rings;
     protected Ball Ball;
 
     Random rand = new Random();
@@ -45,6 +46,7 @@ public class GM2 implements GameMode {
         this.ball_texture = game.T_ogBall;
         this.wall_texture = game.T_wallTexture;
         this.Walls = new Wall[num_walls];
+        this.Rings = new Wall[num_walls];
         this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,80,80,0,0,game.skin_Manager.getBallSkin());
         this.init_GenerateWalls();
     }
@@ -62,8 +64,6 @@ public class GM2 implements GameMode {
     }
 
 
-
-
     protected void init_GenerateWalls(){
         Walls[0] = new Wall(game.cameraWidth/8+wallWidth/2,1100, wallWidth,500, wall_xvel, wall_yvel,wall_texture);
         Walls[1] = new Wall (game.cameraWidth*7/8-wallWidth/2,400,wallWidth,800,wall_xvel, wall_yvel,wall_texture);
@@ -74,6 +74,9 @@ public class GM2 implements GameMode {
                 Walls[i] = new Wall(game.cameraWidth*7/ 8 - wallWidth / 2, generate_right_Wall_Y(i), wallWidth, generate_Wall_Height(), wall_xvel, wall_yvel, wall_texture);
             }
         }
+        for (int i = 0; i < num_walls; i++){
+            Rings[i] = new Wall(rand.nextInt(Math.round(game.cameraWidth/4))+game.cameraWidth*2/8, rand.nextInt(400) + game.cameraHeight, 20, 20, 0,wall_yvel, wall_texture);
+        }
     }
 
     protected float generate_left_Wall_Y(int wall){
@@ -81,17 +84,17 @@ public class GM2 implements GameMode {
         if(last_wall == -2){
             last_wall = num_walls-2;
         }
-        return rand.nextInt(800) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
+        return rand.nextInt(500) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
     }
     protected float generate_right_Wall_Y(int wall){
         int last_wall = wall-2;
         if(last_wall == -1){
             last_wall = num_walls-1;
         }
-        return rand.nextInt(800) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
+        return rand.nextInt(500) + Walls[last_wall].y+Walls[last_wall].height+Ball.height+10;
     }
     protected float generate_Wall_Height(){
-        return rand.nextInt(900)+300-this.score;
+        return rand.nextInt(700)+300-this.score;
     }
 
     public void touch_Update(){
@@ -107,7 +110,6 @@ public class GM2 implements GameMode {
 
     int loss = 0;
     public void update(){
-
         if(started){
             //WALL LOGIC
             if(!lose) {
@@ -120,6 +122,11 @@ public class GM2 implements GameMode {
                             Walls[i].y = generate_right_Wall_Y(i);
                         }
                         Walls[i].height = generate_Wall_Height();
+                    }
+                    Rings[i].updatePos();
+                    int yeah = rand.nextInt(3);
+                    if (yeah == 2 && Rings[i].y + Rings[i].height < -10){
+                        Rings[i].y = rand.nextInt(400) + game.cameraHeight;
                     }
                 }
             }
@@ -156,7 +163,20 @@ public class GM2 implements GameMode {
                         Ball.x = Walls[i].x+Walls[i].width;
                     }
                 }
+                /*
+                boolean [] collided2 = new boolean[num_walls];
+                char [] dir2 = new char[num_walls];//up down left right -> u d l r
+                Ball.checkForDirectionalCollision(Rings,collided2, dir2);
+                if(collided2[i]){
+                    //if(dir[i] == 'r' || dir[i] == 'l'){
+                        if(!lose) {
+                            Ball.y = Rings[i].y + Rings[i].height;
+                            score += 2;
+                        }
+                    //}
+                }*/
             }
+
             if(Ball.x+Ball.width>=game.cameraWidth){
                 Ball.x = game.cameraWidth-Ball.width;
                 Ball.xvel*=-0.5;
@@ -179,8 +199,27 @@ public class GM2 implements GameMode {
             }
             Ball.yvel-=gravity;
             //BALL LOGIC END
+            for(int i = 0; i<num_walls;i++){
+                //wall.yvel+=wall_yvel/130;
+                //int rint=rand.nextInt(2)-1;
+                //int nnint=-rint^-1;
+                //Walls[i].xvel*=nnint;
+
+                if(Walls[i].x > game.cameraWidth*1/2){
+                    if (Walls[i].x+Walls[i].width>game.cameraWidth || Walls[i].x < game.cameraWidth*2/3){
+                        Walls[i].xvel *= -1;
+                    }
+                }
+                else if(Walls[i].x < game.cameraWidth*1/2){
+                    if(Walls[i].x < 0 || Walls[i].x > game.cameraWidth*1/3){
+                    Walls[i].xvel*= -1;
+                    }
+                }
+            }
         }
     }
+
+
     public void lose(){
         if(this.score > this.game.data.getInteger(gamemodeName+"_Highscore",0)){
             this.game.data.putInteger(gamemodeName+"_Highscore",this.score);
@@ -198,19 +237,7 @@ public class GM2 implements GameMode {
         }else{
             Ball.xvel-=Ball_init_vel/300;
         }
-        for(Wall wall:Walls){
-            wall.yvel+=wall_yvel/130;
-            int rint=rand.nextInt(2)-1;
-            int nnint=-rint^-1;
-            wall.xvel*=nnint;
 
-            /*if(wall.x+wall.width<game.cameraWidth){
-                wall.xvel*=-1;
-            }
-            if(wall.x<0){
-                wall.xvel*=-1;
-            }*/
-        }
     }
     public boolean getLose(){
         return this.lose;
