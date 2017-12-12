@@ -74,9 +74,9 @@ public class MainScreen implements Screen {
             inputTouched();
         }
         //Start all rendering
-        onebatch.begin();
-        onebatch.draw(deco, game.cameraWidth*1/20, game.cameraHeight*18/32, game.cameraWidth*5/4, game.cameraWidth*5/4);
-        onebatch.end();
+        //onebatch.begin();
+        //onebatch.draw(deco, game.cameraWidth*1/20, game.cameraHeight*18/32, game.cameraWidth*5/4, game.cameraWidth*5/4);
+        //onebatch.end();
 
         game.batch.begin();
         for(Button button: buttons){
@@ -85,6 +85,9 @@ public class MainScreen implements Screen {
         font.getData().setScale(1.5f,1.5f);
         font.getData().setScale(game.fontScale,game.fontScale);
         Ball.drawSelf(this.game.batch);
+
+        font.draw(game.batch,"Bounchie Ball 2!!",200,900);
+
         game.batch.end();
         //end rendering
     }

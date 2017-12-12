@@ -72,8 +72,13 @@ public class ShopScreen implements Screen {
         for(Button button: buttons){
             button.drawSelf(this.game.batch);
         }
-        font.draw(game.batch,"Cash:  " + game.cash,game.cameraWidth/2 -70,900);
+        font.draw(game.batch,"Cash:  " + game.cash,game.cameraWidth/2 -80,900);
         //font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
+        font.draw(game.batch, "Skins cost 100", game.cameraWidth/2 - 90, 700);
+        font.draw(game.batch, "Legendarys coming soon!", game.cameraWidth/2 - 260, 630);
+        if(game.cash < 100){
+            font.draw(game.batch, "Not enough funds", game.cameraWidth/2 - 190, 560);
+        }
 
         if(this.bought!=-1){
             font.draw(game.batch, "You got skin number " + this.bought + ".", 150, 350);
