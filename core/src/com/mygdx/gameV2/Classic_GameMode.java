@@ -136,16 +136,20 @@ public class Classic_GameMode implements GameMode {
                     }else if(dir[i]=='l'){
                         if(!lose){
                             score++;
+                            if(this.score%10==0){
+                                this.score*=1.1;
+                            }
                             incDiff();
-                            this.game.cash++;
                         }
                         Ball.xvel=-1*abs(Ball.xvel);
                         Ball.x = Walls[i].x-Ball.width;
                     }else if(dir[i]=='r'){
                         if(!lose){
                             score++;
+                            if(this.score%10==0){
+                                this.score*=1.1;
+                            }
                             incDiff();
-                            this.game.cash++;
                         }
                         Ball.xvel=abs(Ball.xvel);
                         Ball.x = Walls[i].x+Walls[i].width;
@@ -181,6 +185,7 @@ public class Classic_GameMode implements GameMode {
         if(this.score > this.game.data.getInteger(gamemodeName+"_Highscore",0)){
             this.game.data.putInteger(gamemodeName+"_Highscore",this.score);
         }
+        this.game.cash +=this.score;
         this.game.data.putInteger("cash",this.game.cash);
         this.game.data.flush();
         lose = true;
