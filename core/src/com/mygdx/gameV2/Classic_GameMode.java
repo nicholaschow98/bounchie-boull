@@ -161,13 +161,11 @@ public class Classic_GameMode implements GameMode {
                 Ball.xvel*=-0.5;
                 lose();
             }else if(Ball.x<0){
-                loss += 1;
                 Ball.x = 0;
                 Ball.xvel*=-0.5;
                 lose();
             }
             if(Ball.y<0){
-                loss += 1;
                 lose();
                 Ball.y = 0;
                 Ball.yvel*=-0.5;
@@ -185,13 +183,13 @@ public class Classic_GameMode implements GameMode {
         if(this.score > this.game.data.getInteger(gamemodeName+"_Highscore",0)){
             this.game.data.putInteger(gamemodeName+"_Highscore",this.score);
         }
-        this.game.cash +=this.score;
-        this.game.data.putInteger("cash",this.game.cash);
-        this.game.data.flush();
-        lose = true;
-        if(loss < 2){
+        if(!lose){
             game.skin_Manager.getSound(6).play();
+            this.game.cash +=this.score;
+            this.game.data.putInteger("cash",this.game.cash);
+            this.game.data.flush();
         }
+        lose = true;
     }
     private void incDiff(){
         if(Ball.xvel>0){

@@ -29,7 +29,6 @@ public class MainScreen implements Screen {
     Ball Ball;
 
     private Texture logo;
-    private SpriteBatch onebatch;
 
     public MainScreen(final B_Ball game){
         this.game = game;
@@ -38,7 +37,7 @@ public class MainScreen implements Screen {
         camera.setToOrtho(false, game.cameraWidth,game.cameraHeight);
         camera.update();
         initializeButtons();
-        this.create();
+        logo = game.Menulogo;
         this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,80,80,0,0,game.skin_Manager.getBallSkin());
         this.Ball.xvel=0.001f;
     }
@@ -52,11 +51,6 @@ public class MainScreen implements Screen {
         buttons[1] = shopButton;
         buttons[2] = skinButton;
         buttons[3] = aboutButton;
-    }
-
-    public void create() {
-        logo = game.Menulogo;
-        onebatch = new SpriteBatch();
     }
 
     public void pause(){
@@ -74,11 +68,9 @@ public class MainScreen implements Screen {
             inputTouched();
         }
         //Start all rendering
-        onebatch.begin();
-        onebatch.draw(logo, game.cameraWidth*1/20, game.cameraHeight*23/32, game.cameraWidth*5/4, game.cameraWidth*3/4);
-        onebatch.end();
 
         game.batch.begin();
+        game.batch.draw(logo, game.cameraWidth*1/20, game.cameraHeight*1/2, game.cameraWidth*9/10, game.cameraWidth*2/4);
         for(Button button: buttons){
             button.drawSelf(this.game.batch);
         }
@@ -94,21 +86,31 @@ public class MainScreen implements Screen {
 
     public void updateBall(){
         Ball.updatePos();
-        if(Ball.x+Ball.width>=game.cameraWidth){
+        if(Ball.x+Ball.width>game.cameraWidth){
             Ball.x = game.cameraWidth-Ball.width;
             Ball.xvel*=-1;
+            if(abs(Ball.xvel)>3) {
+                game.skin_Manager.getSound(0).play();
+            }
         }else if(Ball.x<0){
+            if(abs(Ball.xvel)>3) {
+                game.skin_Manager.getSound(0).play();
+            }
             Ball.x = 0;
             Ball.xvel*=-1;
         }
         if(Ball.y<game.cameraHeight/2-85){
             Ball.y = game.cameraHeight/2-85;
+            if(abs(Ball.yvel)>5) {
+                game.skin_Manager.getSound(0).play();
+            }
             Ball.yvel*=-0.5;
             Ball.xvel*=0.9;
             if(Ball.yvel > -0.5 && Ball.yvel < 0){
                 Ball.yvel = 0;
             }
         }
+
         if(Ball.y > game.cameraHeight*3){
             Ball.y = 0;
             Ball.yvel = 0;

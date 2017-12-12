@@ -40,11 +40,7 @@ public class BasicBallSkin implements BallSkin {
     }
 
     public void playSound(){
-        sounds[ide].play();
-        ide++;
-        if (ide == 6){
-            ide = 0;
-        }
+        sounds[0].play();
     }
 
     public void onDeath(Ball ball){

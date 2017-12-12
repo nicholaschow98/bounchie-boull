@@ -35,7 +35,7 @@ public class GameSelectionScreen implements Screen{
         this.game = game;
         this.Classic_Highscore = this.game.data.getInteger("Classic_Highscore",0);
         this.Staggered_Highscore = this.game.data.getInteger("Staggered_Highscore",0);
-        this.GM2_Highscore = this.game.data.getInteger("GM2_Highscore",0);
+        this.GM2_Highscore = this.game.data.getInteger("NUMBA2_Highscore",0);
         camera = new OrthographicCamera(game.cameraWidth, game.cameraHeight);
         camera.setToOrtho( false, game.cameraWidth,game.cameraHeight);
 
