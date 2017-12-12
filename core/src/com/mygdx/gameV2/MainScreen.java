@@ -28,7 +28,7 @@ public class MainScreen implements Screen {
 
     Ball Ball;
 
-    private Texture deco;
+    private Texture logo;
     private SpriteBatch onebatch;
 
     public MainScreen(final B_Ball game){
@@ -55,7 +55,7 @@ public class MainScreen implements Screen {
     }
 
     public void create() {
-        deco = game.MenuBall;
+        logo = game.Menulogo;
         onebatch = new SpriteBatch();
     }
 
@@ -74,9 +74,9 @@ public class MainScreen implements Screen {
             inputTouched();
         }
         //Start all rendering
-        //onebatch.begin();
-        //onebatch.draw(deco, game.cameraWidth*1/20, game.cameraHeight*18/32, game.cameraWidth*5/4, game.cameraWidth*5/4);
-        //onebatch.end();
+        onebatch.begin();
+        onebatch.draw(logo, game.cameraWidth*1/20, game.cameraHeight*23/32, game.cameraWidth*5/4, game.cameraWidth*3/4);
+        onebatch.end();
 
         game.batch.begin();
         for(Button button: buttons){
@@ -86,7 +86,7 @@ public class MainScreen implements Screen {
         font.getData().setScale(game.fontScale,game.fontScale);
         Ball.drawSelf(this.game.batch);
 
-        font.draw(game.batch,"Bounchie Ball 2!!",200,900);
+        //font.draw(game.batch,"Bounchie Ball 2!!",200,900);
 
         game.batch.end();
         //end rendering
