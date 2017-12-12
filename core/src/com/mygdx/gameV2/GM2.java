@@ -97,7 +97,7 @@ public class GM2 implements GameMode {
         if (before == -1){
             before = num_walls-1;
         }
-        return Rings[before].y + 500 + rand.nextInt(600);
+        return Rings[before].y + game.cameraHeight + rand.nextInt(600);
     }
 
     protected float generate_left_Wall_Y(int wall){
@@ -148,6 +148,7 @@ public class GM2 implements GameMode {
                     int yeah = rand.nextInt(200);
                     if (yeah == 2 && Rings[i].y + Rings[i].height < -10){
                         Rings[i].y = generate_ring_y(i);
+                        Rings[i].x = game.cameraWidth/3 + rand.nextInt(game.cameraWidth/3);
                     }
                 }
             }
@@ -191,7 +192,7 @@ public class GM2 implements GameMode {
                 if(collided2[i]){
                     //if(dir[i] == 'r' || dir[i] == 'l'){
                         if(!lose) {
-                            score += 5;
+                            score += 4;
                             Rings[i].x = -Rings[i].width;
                         }
                     //}
