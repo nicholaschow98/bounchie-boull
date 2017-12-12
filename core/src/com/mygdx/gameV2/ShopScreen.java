@@ -27,7 +27,7 @@ public class ShopScreen implements Screen {
     Button buyButton;
     Button buttons[] = new Button[num_of_Buttons];
     int bought;
-    final int price = 100;
+    final int price = 200;
 
     public ShopScreen(final B_Ball game){
         this.game = game;
@@ -72,7 +72,7 @@ public class ShopScreen implements Screen {
         for(Button button: buttons){
             button.drawSelf(this.game.batch);
         }
-        font.draw(game.batch,"Cash:  " + game.cash,game.cameraWidth/2 -70,900);
+        font.draw(game.batch,"Cash:  " + game.cash,game.cameraWidth/2-70,this.buyButton.y-100);
         //font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
 
         if(this.bought!=-1){
