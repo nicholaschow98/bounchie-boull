@@ -10,15 +10,25 @@ import static java.lang.Math.abs;
  * Created by Nick on 2017-12-03.
  */
 
-public class BasicBallSkin implements BallSkin {
+public class AnimatedBallSkin implements BallSkin {
     private Texture ballTexture;
+    private Texture [] textures;
+    private int numTextures;
+    private int currentTexture;
     private String name;
     private String description;
     private int id;
     private int ide;
     private Sound[] sounds;
-    public BasicBallSkin(String filename, Sound[] goodsound){
-        this.ballTexture = new Texture(filename);
+    public AnimatedBallSkin(String [] filename, Sound[] goodsound){
+
+        this.numTextures = filename.length;
+        this.textures = new Texture[numTextures];
+        currentTexture = 0;
+        for(int i = 0;i<numTextures;i++){
+            textures[i] = new Texture(filename[i]);
+        }
+        this.ballTexture = textures[currentTexture];
         this.sounds = goodsound;
     }
     public Texture getTexture(){
@@ -43,10 +53,15 @@ public class BasicBallSkin implements BallSkin {
             vol = 1;
         }
         this.playSound(vol);
+        currentTexture++;
+        if(currentTexture>=numTextures){
+            currentTexture=0;
+        }
+        this.ballTexture = textures[currentTexture];
     }
 
     public void playSound(float vol){
-        sounds[0].play(vol);
+        sounds[0].play();
     }
 
     public void onDeath(Ball ball){

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by Nick on 2017-11-30.
@@ -22,6 +23,7 @@ public class SkinsScreen implements Screen {
     Button backButton;
     Button buttons[];
     Button skinButtons[];
+    float camera_Y_Displacement;
 
     public SkinsScreen(final B_Ball game){
         this.game = game;
@@ -34,6 +36,7 @@ public class SkinsScreen implements Screen {
 
         camera = new OrthographicCamera(game.cameraWidth, game.cameraHeight);
         camera.setToOrtho(false, game.cameraWidth,game.cameraHeight);
+        camera_Y_Displacement= 0;
         camera.update();
 
         initializeButtons();
@@ -44,6 +47,7 @@ public class SkinsScreen implements Screen {
         backButton= new styleButton(1.5f,"BACK",game.cameraWidth*1/10, game.cameraHeight*7/8,game.skin_Manager.button_file_names);
         buttons[0] = backButton;
     }
+
     private void initializeSkinButtons(){
         int j = 0;
         int k = 0;
@@ -52,7 +56,7 @@ public class SkinsScreen implements Screen {
                 j++;
                 k=0;
             }
-            skinButtons[i] = new Button(game.cameraWidth/8+k*175, game.cameraHeight*(7-j)/8,100,100, game.skin_Manager.ballSkin_T[i]);
+            skinButtons[i] = new Button(game.cameraWidth/8+k*175, game.cameraHeight*(7-j)/8,100,100, game.skin_Manager.ballSkins[i].getTexture());
             k++;
         }
     }
@@ -111,7 +115,16 @@ public class SkinsScreen implements Screen {
                 }
             }
         }
+        if(!Gdx.input.justTouched()){//Touch dragged
+            camera.translate(0,2*Gdx.input.getDeltaY());
+            if(camera.position.y>=game.cameraHeight/2){
+                camera.position.y = game.cameraHeight / 2;
+            }
+        }
     }
+
+
+
     public void hide(){
 
     }

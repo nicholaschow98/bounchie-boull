@@ -40,6 +40,7 @@ public class MainScreen implements Screen {
         logo = game.Menulogo;
         this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,80,80,0,0,game.skin_Manager.getBallSkin());
         this.Ball.xvel=0.001f;
+
     }
 
     private void initializeButtons(){
@@ -70,7 +71,7 @@ public class MainScreen implements Screen {
         //Start all rendering
 
         game.batch.begin();
-        game.batch.draw(logo, game.cameraWidth*1/20, game.cameraHeight*1/2, game.cameraWidth*9/10, game.cameraWidth*2/4);
+        game.batch.draw(logo, 0, game.cameraHeight*1/2-100, game.cameraWidth, game.cameraWidth);
         for(Button button: buttons){
             button.drawSelf(this.game.batch);
         }

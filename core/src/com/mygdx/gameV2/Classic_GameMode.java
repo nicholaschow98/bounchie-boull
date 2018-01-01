@@ -31,7 +31,7 @@ public class Classic_GameMode implements GameMode {
     protected float wall_yvel = -13;
 
     protected float jumpspeed = 25;
-    protected float gravity  = 1.85f;
+        protected float gravity  = 1.85f;
     protected float Ball_init_vel = 6.8f;
 
     protected Texture wall_texture;

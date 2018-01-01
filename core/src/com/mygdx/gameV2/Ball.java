@@ -21,7 +21,8 @@ public class Ball extends Game_Object {
 
     public void onCollide(){
         if(this.xvel != 0) {
-            skin.playSound();
+            skin.onCollide(this);
+            this.texture = skin.getTexture();
         }
     }
 

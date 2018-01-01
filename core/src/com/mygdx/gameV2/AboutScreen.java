@@ -19,6 +19,7 @@ public class AboutScreen implements Screen{
 
     OrthographicCamera camera;
     B_Ball game;
+
     BitmapFont font;
     int fontScale = 2;
 
@@ -102,8 +103,10 @@ public class AboutScreen implements Screen{
         if(Ball.y > game.cameraHeight*3){
             Ball.y = 0;
             Ball.yvel = 0;
+            game.skin_Manager.debugAll();
         }
         Ball.yvel -= 1.85f;
+
     }
 
     public void dispose(){

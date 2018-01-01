@@ -27,6 +27,7 @@ public class ShopScreen implements Screen {
     Button buyButton;
     Button buttons[] = new Button[num_of_Buttons];
     int bought;
+    boolean prev_unlocked;
     final int price = 200;
 
     public ShopScreen(final B_Ball game){
@@ -72,13 +73,13 @@ public class ShopScreen implements Screen {
         for(Button button: buttons){
             button.drawSelf(this.game.batch);
         }
-        font.draw(game.batch,"Cash:  " + game.cash,game.cameraWidth/2-70,this.buyButton.y-100);
+        font.draw(game.batch,"Each skin cost 200! \nYou have " + game.cash+ " cash!",game.cameraWidth/10,this.buyButton.y-100);
         //font.draw(game.batch, game.touchPos.x+", "+game.touchPos.y, 50, 100);
 
         if(this.bought!=-1){
             font.draw(game.batch, "You got skin number " + this.bought + ".", 150, 350);
-            game.batch.draw(new Texture(game.skin_Manager.filenames[this.bought][0]),game.cameraWidth/2 - 40,200);
-            if(game.skin_Manager.unlocked[this.bought]){
+            game.batch.draw(game.skin_Manager.ballSkins[this.bought].getTexture(),game.cameraWidth/2 - 40,200);
+            if(prev_unlocked){
                 font.draw(game.batch, "You already have this skin!", 85, 160);
             }
         }
@@ -102,7 +103,12 @@ public class ShopScreen implements Screen {
                             this.game.data.putInteger("cash",this.game.cash);
                             this.game.data.flush();
                             this.bought = rand.nextInt(game.skin_Manager.num_skins);
-                            this.game.skin_Manager.unlockSkin(this.bought);
+                            if(this.game.skin_Manager.unlocked[this.bought]){
+                                prev_unlocked = true;
+                            }else{
+                                prev_unlocked = false;
+                                this.game.skin_Manager.unlockSkin(this.bought);
+                            }
                         }
                 }
             }

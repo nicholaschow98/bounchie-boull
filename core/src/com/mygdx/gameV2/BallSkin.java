@@ -26,5 +26,5 @@ public interface BallSkin{
 
     public void skinRender(SpriteBatch batch);
 
-    public void playSound();
+    public void playSound(float vol);
 }

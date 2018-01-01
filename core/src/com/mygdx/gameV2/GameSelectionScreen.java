@@ -78,6 +78,7 @@ public class GameSelectionScreen implements Screen{
         if(Classic_Highscore+Staggered_Highscore>50){
             ripButton.drawSelf(game.batch);
         }
+        game.font.draw(game.batch,"CHOOSE YOUR GAMEMODE",game.cameraWidth/10,game.cameraHeight/9*10);
         game.font.draw(game.batch,"Highscore: "+Classic_Highscore,ClassicMode.x+50,ClassicMode.y-15);
         game.font.draw(game.batch,"Highscore: "+Staggered_Highscore,StaggeredMode.x+50,StaggeredMode.y-15);
         game.font.draw(game.batch,"Highscore: "+GM2_Highscore,GM2Mode.x+50,GM2Mode.y-15);
