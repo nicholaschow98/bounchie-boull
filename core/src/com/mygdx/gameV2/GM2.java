@@ -50,7 +50,7 @@ public class GM2 implements GameMode {
         this.Walls = new Wall[num_walls];
         this.Rings = new Wall[num_walls];
         this.AllWalls = new Wall[num_walls*2];
-        this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,80,80,0,0,game.skin_Manager.getBallSkin());
+        this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,game.ballSize,game.ballSize,0,0,game.skin_Manager.getBallSkin());
         this.init_GenerateWalls();
     }
 
@@ -265,8 +265,8 @@ public class GM2 implements GameMode {
     public void start(){
         this.started = true;
         this.score = 0;
-        this.Ball.x = game.cameraWidth/2+80;
-        this.Ball.y = game.cameraHeight/8+80;
+        this.Ball.x = game.cameraWidth/2+game.ballSize;
+        this.Ball.y = game.cameraHeight/8+game.ballSize;
 
         if(lose){
             this.init_GenerateWalls();

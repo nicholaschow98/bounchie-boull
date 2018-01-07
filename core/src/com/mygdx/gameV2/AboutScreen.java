@@ -36,7 +36,7 @@ public class AboutScreen implements Screen{
         camera.setToOrtho(false, game.cameraWidth,game.cameraHeight);
         camera.update();
         initializeButtons();
-        this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,80,80,0,0,game.skin_Manager.getBallSkin());
+        this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,game.ballSize,game.ballSize,0,0,game.skin_Manager.getBallSkin());
         this.Ball.xvel=0.001f;
     }
 

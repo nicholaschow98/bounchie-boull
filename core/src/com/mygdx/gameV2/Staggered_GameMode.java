@@ -57,7 +57,7 @@ public class Staggered_GameMode implements GameMode {
         this.SpecialWalls = new Wall[num_special];
         this.GuardWalls = new Wall[num_guard];
         this.AllWalls = new Wall [num_all];
-        this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,80,80,0,0,game.skin_Manager.getBallSkin());
+        this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,game.ballSize,game.ballSize,0,0,game.skin_Manager.getBallSkin());
         this.init_GenerateWalls();
     }
 
@@ -349,8 +349,8 @@ public class Staggered_GameMode implements GameMode {
     public void start(){
         this.started = true;
         this.score = 0;
-        this.Ball.x = game.cameraWidth/2+80;
-        this.Ball.y = game.cameraHeight/8+80;
+        this.Ball.x = game.cameraWidth/2+game.ballSize;
+        this.Ball.y = game.cameraHeight/8+game.ballSize;
 
         if(lose){
             this.init_GenerateWalls();

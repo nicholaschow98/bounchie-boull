@@ -38,7 +38,7 @@ public class MainScreen implements Screen {
         camera.update();
         initializeButtons();
         logo = game.Menulogo;
-        this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,80,80,0,0,game.skin_Manager.getBallSkin());
+        this.Ball = new Ball(game.cameraWidth/2+80, game.cameraHeight/8+80,game.ballSize,game.ballSize,0,0,game.skin_Manager.getBallSkin());
         this.Ball.xvel=0.001f;
 
     }

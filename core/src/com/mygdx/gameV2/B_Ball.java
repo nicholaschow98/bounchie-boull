@@ -19,6 +19,7 @@ public class B_Ball extends Game {
 
 	int cameraWidth;
 	int cameraHeight;
+	int ballSize = 100;
 	SpriteBatch batch;
 	Texture img;
 

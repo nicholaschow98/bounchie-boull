@@ -9,8 +9,8 @@ import com.badlogic.gdx.audio.Sound;
  */
 
 public class SkinManager{
-    public int num_skins = 29;
-    public int num_basic_skins = 28;
+    public int num_skins = 30;
+    public int num_basic_skins = 29;
     public int current_skin = 0;
 
     String [][] filenames;
@@ -43,7 +43,7 @@ public class SkinManager{
             ballSkins[i] = new BasicBallSkin("skins/Skin"+i+".png",sounds);
         }
         String [] Chaboi_Textures = {"skins/chaboi/chaboi0.png","skins/chaboi/chaboi1.png","skins/chaboi/chaboi2.png","skins/chaboi/chaboi3.png","skins/chaboi/chaboi4.png","skins/chaboi/chaboi5.png"};
-        ballSkins[28] = new AnimatedBallSkin(Chaboi_Textures,sounds);
+        ballSkins[num_basic_skins] = new AnimatedBallSkin(Chaboi_Textures,sounds);
         changeBallSkin(this.current_skin);
         this.button_file_names= new String[] {"sbutton/defButton_0.png","sbutton/defButton_1.png","sbutton/defButton_2.png"};
     }
