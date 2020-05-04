@@ -26,6 +26,10 @@ public class Button extends Renderable implements Pressable{
 
     Sound button_sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Sound7.wav"));
 
+    /*
+    might want to have varying button sounds?
+     */
+
     public void deactivate(){
         active = false;
     }

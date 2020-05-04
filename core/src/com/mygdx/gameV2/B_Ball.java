@@ -13,8 +13,6 @@ import com.badlogic.gdx.math.Vector3;
 
 public class B_Ball extends Game {
 
-
-
 	Preferences data;
 
 	int cameraWidth;

@@ -2,6 +2,7 @@ package com.mygdx.gameV2;
 
 /**
  * Created by Nick on 2017-11-29.
+ * change to protected abstract class
  */
 
 public interface GameMode {
@@ -15,3 +16,11 @@ public interface GameMode {
     void start();
     boolean getStarted();
 }
+
+/*
+shit to move into GameMode (turn into abstract class)
+Ball update logic
+Start / Lose logic
+Basic Wall generation logic (when to regenerate) - updating, coordinate generation. type generation, size and count logic left to the classes
+
+ */

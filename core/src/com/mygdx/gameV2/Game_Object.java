@@ -8,6 +8,7 @@ import static java.lang.Math.abs;
 
 /**
  * Created by Nick on 2017-11-29.
+ * Why do we need this separate from ball... there's only one game object
  */
 
 public class Game_Object extends Renderable{
