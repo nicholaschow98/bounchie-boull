@@ -104,8 +104,8 @@ public class Classic_GameMode implements GameMode {
             //WALL LOGIC
             if(!lose) {
                 for (int i = 0; i<num_walls;i++) {
-                    Walls[i].updatePos();
-                    if(Walls[i].y+Walls[i].height < -10){
+                    Walls[i].updatePos();//update wall position
+                    if(Walls[i].y+Walls[i].height < -10){//generating walls
                         if(i%2==0){
                             Walls[i].y = generate_left_Wall_Y(i);
                         }else{
